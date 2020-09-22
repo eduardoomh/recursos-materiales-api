@@ -1,13 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const SubdirectionSchema = Schema({
+const PuestoSchema = Schema({
     nombre: {
-        type: String,
-        require: true,
-        trim: true
-    },
-    jefe: {
         type: String,
         require: true,
         trim: true
@@ -22,4 +17,4 @@ const SubdirectionSchema = Schema({
     }
 });
 
-module.exports = mongoose.model("Subdirection", SubdirectionSchema);
+module.exports = mongoose.model("Puesto", PuestoSchema);

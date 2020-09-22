@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const EventoSchema = Schema({
-    nombre: {
+const SalidaSchema = Schema({
+    destino: {
         type: String,
         require: true,
         trim: true
@@ -17,49 +17,30 @@ const EventoSchema = Schema({
         require: true,
         ref: "Departamento",
     },
-    sitio: {
-        type: Schema.Types.ObjectId,
-        require: true,
-        ref: "Sitio",
-    },
     usuario: {
         type: Schema.Types.ObjectId,
         require: true,
         ref: "Usuario",
     },
-    fecha: {
+    hora_salida: {
         type: String,
         require: true,
         trim: true
     },
-    fecha_final: {
-        type: String,
-        trim: true,
-    },
-    hora_inicio: {
+    hora_llegada: {
         type: String,
         require: true,
         trim: true
     },
-    hora_final: {
-        type: String,
-        require: true,
-        trim: true
-    },
-    acomodo_sillas: {
+    vehiculo: {
         type: Schema.Types.ObjectId,
         require: true,
-        ref: "Acomodosilla",
+        ref: "Vehiculo",
     },
-    verificado: {
+    chofer: {
         type: Boolean,
         require: true,
-        default: false
-    },
-    aprobado: {
-        type: Boolean,
-        require: true,
-        default: false
+        trim: true
     },
     createdAt: {
         type: Date,
@@ -71,4 +52,4 @@ const EventoSchema = Schema({
     }
 });
 
-module.exports = mongoose.model("Evento", EventoSchema);
+module.exports = mongoose.model("Salida", SalidaSchema);

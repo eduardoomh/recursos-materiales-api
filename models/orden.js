@@ -1,13 +1,23 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const EventoSchema = Schema({
+const OrdenSchema = Schema({
     nombre: {
         type: String,
         require: true,
         trim: true
     },
-    actividades: {
+    mantenimiento: {
+        type: String,
+        require: true,
+        trim: true
+    },
+    servicio: {
+        type: Schema.Types.ObjectId,
+        require: true,
+        ref: "Tipoorden",
+    },
+    asignado_a: {
         type: String,
         require: true,
         trim: true
@@ -16,11 +26,6 @@ const EventoSchema = Schema({
         type: Schema.Types.ObjectId,
         require: true,
         ref: "Departamento",
-    },
-    sitio: {
-        type: Schema.Types.ObjectId,
-        require: true,
-        ref: "Sitio",
     },
     usuario: {
         type: Schema.Types.ObjectId,
@@ -32,33 +37,36 @@ const EventoSchema = Schema({
         require: true,
         trim: true
     },
-    fecha_final: {
-        type: String,
-        trim: true,
-    },
-    hora_inicio: {
+    hora_salida: {
         type: String,
         require: true,
         trim: true
     },
-    hora_final: {
+    hora_llegada: {
         type: String,
         require: true,
         trim: true
     },
-    acomodo_sillas: {
-        type: Schema.Types.ObjectId,
+    trabajo_realizado: {
+        type: String,
         require: true,
-        ref: "Acomodosilla",
+        trim: true
+    },
+    equipo_proteccion: {
+        type: String,
+        require: true,
+        trim: true
     },
     verificado: {
         type: Boolean,
         require: true,
+        trim: true,
         default: false
     },
     aprobado: {
         type: Boolean,
         require: true,
+        trim: true,
         default: false
     },
     createdAt: {
@@ -71,4 +79,4 @@ const EventoSchema = Schema({
     }
 });
 
-module.exports = mongoose.model("Evento", EventoSchema);
+module.exports = mongoose.model("Orden", OrdenSchema);

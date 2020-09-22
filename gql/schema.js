@@ -22,13 +22,15 @@ type Evento{
   nombre: String!
   actividades: String!
   departamento: Departamento!
-  lugar: Lugar!
+  sitio: Sitio!
   usuario: Usuario!
   fecha: String!
   fecha_final: String
   hora_inicio: String!
   hora_final: String!
   acomodo_sillas: Acomodosilla!
+  verificado: Boolean!
+  aprobado: Boolean!
   createdAt: String!
   updatedAt: String
 }
@@ -38,30 +40,30 @@ type Departamento{
   id: ID!
   nombre: String!
   jefe: String!
-  telefono: String
-  correo: String
-  subdireccion: Subdireccion!
+  telefono: String!
+  correo: String!
+  subdireccion: Subdirection!
   createdAt: String!
-  updatedAt: String
+  updatedAt: String!
 }
 
 #tipo subdireccion
-type Subdireccion{
+type Subdirection{
   id: ID!
   nombre: String!
-  jefe: String
+  jefe: String!
   createdAt: String!
-  updatedAt: String
+  updatedAt: String!
 }
 
 #tipo lugar
-type Lugar{
+type Sitio{
   id: ID!
   nombre: String!
   edificio: Edificio!
   disponibidad: Boolean!
   createdAt: String!
-  updatedAt: String
+  updatedAt: String!
 }
 
 #tipo edificio
@@ -78,7 +80,7 @@ type Acomodosilla{
   tipo: String!
   imagen: String!
   createdAt: String!
-  updatedAt: String
+  updatedAt: String!
 }
 
 #tipo evidencia
@@ -88,12 +90,76 @@ type Evidencia{
   tipo: String!
   imagen: String!
   createdAt: String!
-  updatedAt: String
+  updatedAt: String!
 }
+
+#tipo puesto
+type Puesto{
+  nombre: String!
+  createdAt: String!
+  updatedAt: String!
+}
+
+#tipo permiso
+type Permiso{
+  usuario: Usuario!
+  departamento: Departamento!
+  puesto: Puesto!
+  createdAt: String!
+  updatedAt: String!
+}
+
+#tipo vehiculo
+type Vehiculo{
+  nombre: String!
+  modelo: String!
+  placas: String!
+  disponibidad: Boolean!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Salida{
+  destino: String!
+  actividades: String!
+  departamento: Departamento!
+  usuario: Usuario!
+  hora_salida: String!
+  hora_llegada: String!
+  vehiculo: Vehiculo!
+  chofer: String!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Order{
+  nombre: String!
+  mantenimiento: String!
+  servicio: TipoOrder!
+  asignado_a: String!
+  departamento: Departamento!
+  usuario: Usuario!
+  fecha: String!
+  hora_inicio: String!
+  hora_final: String!
+  trabajo_realizado: String!
+  equipo_proteccion: String
+  verificado: Boolean!
+  aprobado: Boolean!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type TipoOrder{
+  nombre: String!
+  createdAt: String!
+  updatedAt: String!
+}
+
 
 #tipo token
 type Token{
-  token: String
+  token: String!
 }
 
 #inputs de usuario
@@ -114,8 +180,11 @@ input actualizarUsuarioInput{
   nombre: String
   apellidos: String
   correo: String
-  contrasena: String
+  contrasenaActual: String
+  contrasenaNueva: String
   numero_control: String
+  descripcion: String
+  telefono: String
   updatedAt: String
 }
 
@@ -135,8 +204,9 @@ type Query {
 #mutationes
 type Mutation {
     crearUsuario(input: usuarioInput!): Usuario
-    login(input: loginInput): Token
+    login(input: loginInput!): Token
     aprobarUsuario(id: ID!): Boolean
+    actualizarUsuario(input: actualizarUsuarioInput!): Boolean!
   }
 `;
 

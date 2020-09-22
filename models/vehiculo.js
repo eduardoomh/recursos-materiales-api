@@ -1,16 +1,26 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const SubdirectionSchema = Schema({
+const VehiculoSchema = Schema({
     nombre: {
         type: String,
         require: true,
         trim: true
     },
-    jefe: {
+    modelo: {
         type: String,
         require: true,
         trim: true
+    },
+    placas: {
+        type: String,
+        require: true,
+        trim: true
+    },
+    disponibilidad: {
+        type: Boolean,
+        require: true,
+        default: true
     },
     createdAt: {
         type: Date,
@@ -22,4 +32,4 @@ const SubdirectionSchema = Schema({
     }
 });
 
-module.exports = mongoose.model("Subdirection", SubdirectionSchema);
+module.exports = mongoose.model("Vehiculo", VehiculoSchema);

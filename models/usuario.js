@@ -21,14 +21,17 @@ const UserSchema = Schema({
     avatar: {
         type: String,
         trim: true,
+        default: null
     },
     telefono: {
         type: String,
-        trim: true
+        trim: true,
+        default: null
     },
     descripcion: {
         type: String,
-        trim: true
+        trim: true,
+        default: null
     },
     contrasena: {
         type: String,
@@ -38,7 +41,7 @@ const UserSchema = Schema({
     numero_control: {
         type: String,
         require: true,
-        trim: true
+        trim: true,
     },
     estatus: {
         type: String,

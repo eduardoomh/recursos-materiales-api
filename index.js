@@ -28,7 +28,10 @@ const resolvers = {
       
     },
     Mutation: {
-        crearUsuario: (parent, args, context, info) => usuarioController.crearUsuario(args.input)
+        crearUsuario: (parent, args, context, info) => usuarioController.crearUsuario(args.input),
+        login: (parent, args, context, info) => usuarioController.login(args.input),
+        aprobarUsuario: (parent, args, context, info) => usuarioController.aprobarUsuario(args.id),
+        actualizarUsuario: (parent, args, context, info) => usuarioController.actualizarUsuario(args.input, context)
 
     }
   }
@@ -42,12 +45,12 @@ function server(){
 
             if(token){
                 try{
-                    const user = jwt.verify(
+                    const usuario = jwt.verify(
                         token.replace("bearer ", ""),
                         process.env.SECRET_KEY
                     );
                     return {
-                        user,
+                        usuario,
                     };
 
                 }

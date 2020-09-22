@@ -1,21 +1,21 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const SitioSchema = Schema({
-    nombre: {
-        type: String,
-        require: true,
-        trim: true
-    },
-    edificio: {
+const PermisoSchema = Schema({
+    usuario: {
         type: Schema.Types.ObjectId,
         require: true,
-        ref: "Edificio",
+        ref: "Usuario",
     },
-    disponibilidad: {
-        type: Boolean,
+    departamento: {
+        type: Schema.Types.ObjectId,
         require: true,
-        default: true
+        ref: "Departamento",
+    },
+    puesto: {
+        type: Schema.Types.ObjectId,
+        require: true,
+        ref: "Puesto",
     },
     createdAt: {
         type: Date,
@@ -27,4 +27,4 @@ const SitioSchema = Schema({
     }
 });
 
-module.exports = mongoose.model("Sitio", SitioSchema);
+module.exports = mongoose.model("Permiso", PermisoSchema);
