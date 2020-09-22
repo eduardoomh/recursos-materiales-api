@@ -125,13 +125,14 @@ input pedirEvidenciaInput{
   tipo: String!
 }
 
-
+#queries
 type Query {
     obtenerUsuarios: [Usuario]!,
     obtenerUsuario(id: ID!): Usuario!
     obtenerEvidencias(input: pedirEvidenciaInput!): [Evidencia]
   }
 
+#mutationes
 type Mutation {
     crearUsuario(input: usuarioInput!): Usuario
     login(input: loginInput): Token
