@@ -1,0 +1,22 @@
+{
+  "name": "tec-materiales-graphql",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "eduardoomh",
+  "license": "MIT",
+    "scripts": {
+    "dev": "nodemon ./index.js"
+  },
+  "dependencies": {
+    "apollo-server": "^2.17.0",
+    "aws-sdk": "^2.756.0",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^8.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.6",
+    "uuid": "^8.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
