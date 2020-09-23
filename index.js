@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const { ApolloServer } = require("apollo-server");
 const typeDefs = require("./gql/schema");
-const usuarioController = require("./controllers/usuario");
+const resolvers = require("./gql/resolvers");
 require("dotenv").config({path: ".env"});
 
 
@@ -21,20 +21,6 @@ mongoose.connect(process.env.BBDD, {
     }
 });
 
-const resolvers = {
-    Query: {
-      obtenerUsuarios: () => usuarioController.obtenerUsuarios(),
-      obtenerUsuario: (_, args) => usuarioController.obtenerUsuario(args.id)
-      
-    },
-    Mutation: {
-        crearUsuario: (parent, args, context, info) => usuarioController.crearUsuario(args.input),
-        login: (parent, args, context, info) => usuarioController.login(args.input),
-        aprobarUsuario: (parent, args, context, info) => usuarioController.aprobarUsuario(args.id),
-        actualizarUsuario: (parent, args, context, info) => usuarioController.actualizarUsuario(args.input, context)
-
-    }
-  }
 
 function server(){
     const serverApollo = new ApolloServer({

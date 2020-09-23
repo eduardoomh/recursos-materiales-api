@@ -47,7 +47,7 @@ async function crearUsuario(input){
     
         //revisamos si el username esta en uso
         const numeroExistente = await Usuario.findOne({numero_control});
-        if(numeroExistente) throw new Error("El numero de control ya esta en uso");
+        if(numeroExistente) throw new Error("El número de control ya está en uso");
     
         //encriptar password
         const salt = await bcrypt.genSaltSync(10);
@@ -66,14 +66,13 @@ async function crearUsuario(input){
 
 async function login(input){
     const { correo, contrasena } = input;
-    console.log(correo, contrasena)
     const usuarioEncontrado = await Usuario.findOne({correo: correo.toLowerCase()});
-    console.log(usuarioEncontrado);
-    if(!usuarioEncontrado) throw new Error("error en el correo y contrasena");
-    if(usuarioEncontrado.estatus !== "aprobado") throw new Error("Su cuenta aun no ha sido aprobada");
+    
+    if(!usuarioEncontrado) throw new Error("error en el correo y contraseña");
+    if(usuarioEncontrado.estatus !== "aprobado") throw new Error("Su cuenta aún no ha sido aprobada");
 
     const contrasenaExitosa = await bcrypt.compare(contrasena, usuarioEncontrado.contrasena);
-    if(!contrasenaExitosa) throw new Error("error en el correo y contrasena");
+    if(!contrasenaExitosa) throw new Error("error en el correo y contraseña");
 
 
     return {
@@ -94,7 +93,7 @@ async function actualizarUsuario(input, ctx){
             const usuarioEncontrado = await User.findById(id);
             const contrasenaCorrecta = await bcrypt.compare(input.contrasenaActual, usuarioEncontrado.contrasena);
 
-            if(!contrasenaCorrecta) throw new Error("contrasena incorrecta");
+            if(!contrasenaCorrecta) throw new Error("contraseña incorrecta");
             const salt = await bcrypt.genSaltSync(10);
             const nuevaContrasenaEncriptada = await bcrypt.hash(input.contrasenaNueva, salt);
             const ActualizacionTerminada = await Usuario.findByIdAndUpdate(id, {password: contrasenaNueva});

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const TipoordenSchema = Schema({
+const TipoorderSchema = Schema({
     nombre: {
         type: String,
         require: true,
@@ -17,4 +17,4 @@ const TipoordenSchema = Schema({
     }
 });
 
-module.exports = mongoose.model("Tipoorden", TipoordenSchema);
+module.exports = mongoose.model("Tipoorder", TipoorderSchema);

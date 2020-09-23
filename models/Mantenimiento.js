@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const OrdenSchema = Schema({
+const MantenimientoSchema = Schema({
     nombre: {
         type: String,
         require: true,
@@ -15,7 +15,7 @@ const OrdenSchema = Schema({
     servicio: {
         type: Schema.Types.ObjectId,
         require: true,
-        ref: "Tipoorden",
+        ref: "Tipoorder",
     },
     asignado_a: {
         type: String,
@@ -79,4 +79,4 @@ const OrdenSchema = Schema({
     }
 });
 
-module.exports = mongoose.model("Orden", OrdenSchema);
+module.exports = mongoose.model("Mantenimiento", MantenimientoSchema);
