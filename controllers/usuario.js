@@ -23,9 +23,14 @@ function crearToken(usuario, SECRET_KEY, expiresIn){
 async function obtenerUsuarios(input, ctx){
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
     const {cantidad, pagina} = input;
+    try{
+        const users = await Usuario.find().limit(cantidad).skip((pagina - 1) * cantidad);
+        return users;
 
-    const users = await Usuario.find().limit(cantidad).skip((pagina - 1) * cantidad);
-    return users;
+    }
+    catch(err){
+        console.log(err);
+    }
 
 }
 

@@ -4,14 +4,30 @@ async function obtenerTipoOrders(input, ctx){
     const { cantidad, pagina } = input;
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
-    const tipoorders = await Tipoorder.find().limit(cantidad)
-    .skip((pagina - 1) * cantidad);
+    try{
+        const tipoorders = await Tipoorder.find().limit(cantidad)
+        .skip((pagina - 1) * cantidad);
+    
+        return tipoorders;
 
-    return tipoorders;
+    }
+    catch(err){
+        console.log(err);
+    }
 }
 
-async function obtenerTipoOrder(){
+async function obtenerTipoOrder(id, ctx){
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
+    try{
+        const tipoorder = await Tipoorder.findById(id);
+    
+        return tipoorder;
+
+    }
+    catch(err){
+        console.log(err);
+    }
 }
 
 async function crearTipoOrder(input, ctx){

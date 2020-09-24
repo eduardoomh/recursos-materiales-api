@@ -4,14 +4,29 @@ async function obtenerSitios(input, ctx){
     const { cantidad, pagina } = input;
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
-    const sitios = await Sitio.find().populate("edificio").limit(cantidad)
-    .skip((pagina - 1) * cantidad);
+    try{
+        const sitios = await Sitio.find().populate("edificio").limit(cantidad)
+        .skip((pagina - 1) * cantidad);
+    
+        return sitios;
 
-    return sitios;
+    }
+    catch(err){
+        console.log(Err);
+    }
 }
 
-async function obtenerSitio(){
+async function obtenerSitio(id, ctx){
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
+    try{
+        const sitio = await Sitio.findById(id).populate("edificio");
+        return sitio;
+    }
+    catch(err){
+        console.log(err);
+    }
+    
 }
 
 async function crearSitio(input, ctx){

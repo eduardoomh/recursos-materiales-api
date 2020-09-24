@@ -3,15 +3,28 @@ const Departamento = require("../models/departamento");
 async function obtenerDepartamentos(input, ctx){
     const { cantidad, pagina } = input;
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
-
-    const departamentos = await Departamento.find().limit(cantidad)
-    .skip((pagina - 1) * cantidad);
-
-    return departamentos;
+    try{
+        const departamentos = await Departamento.find().populate("subdireccion").limit(cantidad)
+        .skip((pagina - 1) * cantidad);
+    
+        return departamentos;
+        
+    }
+    catch(err){
+        console.log(err);
+    }
 }
 
-async function obtenerDepartamento(){
+async function obtenerDepartamento(id, ctx){
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
+    try{
+        const departamento = await Departamento.findById(id).populate("subdireccion");
 
+        return departamento;
+    }
+    catch(err){
+        console.log(err);
+    }
 }
 
 async function crearDepartamento(input, ctx){
