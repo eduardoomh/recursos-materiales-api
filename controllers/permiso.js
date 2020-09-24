@@ -1,7 +1,13 @@
 const Permiso = require("../models/permiso");
 
-async function obtenerPermisos(){
+async function obtenerPermisos(input, ctx){
+    const { cantidad, pagina } = input;
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
+    const permisos = await Permiso.find().limit(cantidad)
+    .skip((pagina - 1) * cantidad);
+
+    return permisos;
 }
 
 async function obtenerPermiso(){

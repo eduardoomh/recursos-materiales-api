@@ -24,7 +24,9 @@ const resolvers = {
       obtenerEvento: (_, args, ctx) => eventoController.obtenerEvento(args.id, ctx),
 
       //mantenimientos
-      obtenerMantenimientos: (_, args, ctx) => mantenimientoController.obtenerMantenimientos(args.input, ctx),
+      obtenerReparaciones: (_, args, ctx) => mantenimientoController.obtenerReparaciones(args.input, ctx),
+      obtenerServicios: (_, args, ctx) => mantenimientoController.obtenerServicios(args.input, ctx),
+      obtenerTransportes: (_, args, ctx) => mantenimientoController.obtenerTransportes(args.input, ctx),
       obtenerMantenimiento: (_, args, ctx) => mantenimientoController.obtenerMantenimiento(args.id, ctx),
 
       //salidas
@@ -53,7 +55,7 @@ const resolvers = {
 
       //tipoorders
       obtenerTipoorders: (_, args, ctx) => tipoorderController.obtenerTipoOrders(args.input, ctx),
-      obtenerTipoorders: (_, args, ctx) => tipoorderController.obtenerTipoOrder(args.id, ctx),
+      obtenerTipoorder: (_, args, ctx) => tipoorderController.obtenerTipoOrder(args.id, ctx),
 
       //acomodosillas
       obtenerAcomodosillas: (_, args, ctx) => acomodosillaController.obtenerAcomodosillas(args.input, ctx),

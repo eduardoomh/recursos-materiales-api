@@ -1,8 +1,36 @@
 const Mantenimiento = require("../models/mantenimiento");
 
-async function obtenerMantenimientos(){
+async function obtenerReparaciones(args, ctx){
+    const { cantidad, pagina } = args;
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
+    const mantenimientos = await Mantenimiento.find().limit(cantidad)
+    .skip((pagina - 1) * cantidad);
+
+    return mantenimientos;
 }
+
+async function obtenerServicios(args, ctx){
+    const { cantidad, pagina } = args;
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
+
+    const mantenimientos = await Mantenimiento.find().limit(cantidad)
+    .skip((pagina - 1) * cantidad);
+
+    return mantenimientos;
+}
+
+async function obtenerTransportes(args, ctx){
+    const { cantidad, pagina } = args;
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
+
+    const mantenimientos = await Mantenimiento.find().limit(cantidad)
+    .skip((pagina - 1) * cantidad);
+
+    return mantenimientos;
+}
+
+
 
 async function obtenerMantenimiento(){
 
@@ -22,7 +50,9 @@ async function borrarMantenimiento(){
 
 
 module.exports = {
-    obtenerMantenimientos,
+    obtenerReparaciones,
+    obtenerServicios,
+    obtenerTransportes,
     obtenerMantenimiento,
     crearMantenimiento,
     actualizarMantenimiento,

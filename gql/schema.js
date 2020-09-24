@@ -61,7 +61,7 @@ type Sitio{
   id: ID!
   nombre: String!
   edificio: Edificio!
-  disponibidad: Boolean!
+  disponibilidad: Boolean!
   createdAt: String!
   updatedAt: String!
 }
@@ -95,6 +95,7 @@ type Evidencia{
 
 #tipo puesto
 type Puesto{
+  id: ID!
   nombre: String!
   createdAt: String!
   updatedAt: String!
@@ -102,6 +103,7 @@ type Puesto{
 
 #tipo permiso
 type Permiso{
+  id: ID!
   usuario: Usuario!
   departamento: Departamento!
   puesto: Puesto!
@@ -111,6 +113,7 @@ type Permiso{
 
 #tipo vehiculo
 type Vehiculo{
+  id: ID!
   nombre: String!
   modelo: String!
   placas: String!
@@ -120,10 +123,12 @@ type Vehiculo{
 }
 
 type Salida{
+  id: ID!
   destino: String!
   actividades: String!
   departamento: Departamento!
   usuario: Usuario!
+  fecha: String!
   hora_salida: String!
   hora_llegada: String!
   vehiculo: Vehiculo!
@@ -133,9 +138,10 @@ type Salida{
 }
 
 type Mantenimiento{
+  id: ID!
   nombre: String!
   mantenimiento: String!
-  servicio: TipoOrder!
+  servicio: Tipoorder!
   asignado_a: String!
   departamento: Departamento!
   usuario: Usuario!
@@ -150,7 +156,8 @@ type Mantenimiento{
   updatedAt: String!
 }
 
-type TipoOrder{
+type Tipoorder{
+  id: ID
   nombre: String!
   createdAt: String!
   updatedAt: String!
@@ -393,7 +400,7 @@ input PaginateInput{
 #queries
 type Query {
   #usuarios
-    obtenerUsuarios: [Usuario]!,
+    obtenerUsuarios(input: PaginateInput!): [Usuario]!,
     obtenerUsuario(id: ID!): Usuario!
 
     #eventos
@@ -401,7 +408,9 @@ type Query {
     obtenerEvento(id: ID!): Evento
 
     #mantenimientos
-    obtenerMantenimientos(input: PaginateInput!): [Mantenimiento]!
+    obtenerReparaciones(input: PaginateInput!): [Mantenimiento]!
+    obtenerServicios(input: PaginateInput!): [Mantenimiento]!
+    obtenerTransportes(input: PaginateInput!): [Mantenimiento]!
     obtenerMantenimiento(id: ID!): Mantenimiento
 
     #salidas
@@ -437,8 +446,8 @@ type Query {
     obtenerEdificio(id: ID!): Edificio
 
     #tipoorders
-    obtenerTipoorders(input: PaginateInput!): [TipoOrder]!
-    obtenerTipoorder(id: ID!): TipoOrder
+    obtenerTipoorders(input: PaginateInput!): [Tipoorder]!
+    obtenerTipoorder(id: ID!): Tipoorder
 
     #acomodosillas
     obtenerAcomodosillas(input: PaginateInput!): [Acomodosilla]!

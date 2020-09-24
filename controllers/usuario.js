@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 function crearToken(usuario, SECRET_KEY, expiresIn){
-    const { id, nombre, apellidos, correo, numero_control, descripcion, avatar, telefono } = usuario;
+    const { id, nombre, apellidos, correo, numero_control, descripcion, avatar, telefono, estatus } = usuario;
 
     const payload = {
         id,
@@ -13,18 +13,25 @@ function crearToken(usuario, SECRET_KEY, expiresIn){
         numero_control,
         descripcion,
         avatar,
+        estatus,
         telefono,
     };
  
     return jwt.sign(payload, SECRET_KEY, { expiresIn });
 }
 
-async function obtenerUsuarios(){
-    const users = await Usuario.find();
+async function obtenerUsuarios(input, ctx){
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
+    const {cantidad, pagina} = input;
+
+    const users = await Usuario.find().limit(cantidad).skip((pagina - 1) * cantidad);
     return users;
+
 }
 
-async function obtenerUsuario(id){
+async function obtenerUsuario(id, ctx){
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
+
     let user = null;
     if(id) user = await Usuario.findById(id);
 
@@ -69,7 +76,7 @@ async function login(input){
     const usuarioEncontrado = await Usuario.findOne({correo: correo.toLowerCase()});
     
     if(!usuarioEncontrado) throw new Error("error en el correo y contraseña");
-    if(usuarioEncontrado.estatus !== "aprobado") throw new Error("Su cuenta aún no ha sido aprobada");
+    if(usuarioEncontrado.estatus === "pendiente") throw new Error("Su cuenta aún no ha sido aprobada");
 
     const contrasenaExitosa = await bcrypt.compare(contrasena, usuarioEncontrado.contrasena);
     if(!contrasenaExitosa) throw new Error("error en el correo y contraseña");
