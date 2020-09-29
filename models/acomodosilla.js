@@ -7,11 +7,6 @@ const AcomodosillaSchema = Schema({
         require: true,
         trim: true
     },
-    tipo: {
-        type: String,
-        require: true,
-        trim: true
-    },
     imagen: {
         type: String,
         require: true,

@@ -77,7 +77,7 @@ type Edificio{
 #tipo acomodosilla
 type Acomodosilla{
   id: ID!
-  tipo: String!
+  nombre: String!
   imagen: String!
   createdAt: String!
   updatedAt: String!
@@ -238,7 +238,6 @@ input crearVehiculo{
   nombre: String!
   modelo: String!
   placas: String!
-  disponibilidad: Boolean!
 }
 
 input actualizarVehiculo{
@@ -276,6 +275,7 @@ input crearEvento{
   hora_inicio: String!
   hora_final: String!
   acomodo_sillas: ID!
+  usuario: ID!
 }
 
 input actualizarEvento{
@@ -369,12 +369,12 @@ input actualizarPermiso{
 
 #input de acomodosillas
 input crearAcomodosilla{
-  tipo: String!
+  nombre: String!
   imagen: String!
 }
 
 input actualizarAcomodosilla{
-  tipo: String
+  nombre: String
   imagen: String
 }
 

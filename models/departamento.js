@@ -24,7 +24,7 @@ const DepartamentoSchema = Schema({
     subdireccion: {
         type: Schema.Types.ObjectId,
         require: true,
-        ref: "Subdireccion",
+        ref: "Subdirection",
     },
     createdAt: {
         type: Date,

@@ -32,10 +32,7 @@ async function crearEvento(input, ctx){
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
     try{
-        const evento = await new Evento({
-            input,
-            usuario: ctx.usuario.id
-        });
+        const evento = await new Evento(input);
         evento.save();
         return true;
     }
