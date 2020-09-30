@@ -51,7 +51,7 @@ async function obtenerTransportes(args, ctx){
 async function obtenerMantenimiento(id, ctx){
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
     try{
-        const mantenimiento = await Mantenimiento.findById(id).populate("departamento");
+        const mantenimiento = await Mantenimiento.findById(id).populate("departamento").populate("servicio").populate("usuario");
     
         return mantenimiento;
 
@@ -65,10 +65,7 @@ async function crearMantenimiento(input, ctx){
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
     try{
-        const mantenimiento = await new Mantenimiento({
-            input,
-            usuario: ctx.usuario.id
-        });
+        const mantenimiento = await new Mantenimiento(input);
         mantenimiento.save();
         return true;
     }

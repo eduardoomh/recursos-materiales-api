@@ -37,12 +37,17 @@ const MantenimientoSchema = Schema({
         require: true,
         trim: true
     },
-    hora_salida: {
+    fecha_final: {
+        type: String,
+        require: false,
+        trim: true
+    },
+    hora_inicio: {
         type: String,
         require: true,
         trim: true
     },
-    hora_llegada: {
+    hora_final: {
         type: String,
         require: true,
         trim: true

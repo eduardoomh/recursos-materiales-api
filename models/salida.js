@@ -22,6 +22,11 @@ const SalidaSchema = Schema({
         require: true,
         ref: "Usuario",
     },
+    fecha: {
+        type: String,
+        require: true,
+        trim: true
+    },
     hora_salida: {
         type: String,
         require: true,
@@ -38,7 +43,7 @@ const SalidaSchema = Schema({
         ref: "Vehiculo",
     },
     chofer: {
-        type: Boolean,
+        type: String,
         require: true,
         trim: true
     },

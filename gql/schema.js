@@ -146,6 +146,7 @@ type Mantenimiento{
   departamento: Departamento!
   usuario: Usuario!
   fecha: String!
+  fecha_final: String
   hora_inicio: String!
   hora_final: String!
   trabajo_realizado: String!
@@ -298,9 +299,11 @@ input crearMantenimiento{
   asignado_a: String!
   departamento: ID!
   fecha: String!
+  fecha_final: String
   hora_inicio: String!
   hora_final: String!
   trabajo_realizado: String!
+  usuario: ID!
 }
 
 input actualizarMantenimiento{
@@ -320,16 +323,19 @@ input crearSalida{
   destino: String!
   actividades: String!
   departamento: ID!
+  fecha: String!
   hora_salida: String!
   hora_llegada: String!
   vehiculo: ID!
   chofer: String!
+  usuario: ID!
 }
 
 input actualizarSalida{
   destino: String
   actividades: String
   departamento: ID
+  fecha: String
   hora_salida: String
   hora_llegada: String
   vehiculo: ID

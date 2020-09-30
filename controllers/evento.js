@@ -18,7 +18,7 @@ async function obtenerEventos(input, ctx){
 async function obtenerEvento(id, ctx){
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
     try{
-        const evento = await Evento.findById(id).populate("departamento");
+        const evento = await Evento.findById(id).populate("departamento").populate("usuario").populate("acomodo_sillas").populate("sitio");
     
         return evento;
 
@@ -39,10 +39,23 @@ async function crearEvento(input, ctx){
     catch(error){
         console.log(error);
         return false
-    }
+    } 
 }
 
-async function actualizarEvento(){
+async function actualizarEvento(input, ctx){
+    const { id } = input;
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
+
+    try{
+        const evento = await Evento.findByIdAndUpdate(id, input);
+        console.log(evento);
+        return true
+
+    }
+    catch(error){
+        console.log(error);
+        return false
+    }
 
 }
 

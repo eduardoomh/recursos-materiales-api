@@ -18,7 +18,7 @@ async function obtenerSalidas(input, ctx){
 async function obtenerSalida(id, ctx){
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
     try{
-        const salida = await Salida.findById(id).populate("vehiculo");
+        const salida = await Salida.findById(id).populate("vehiculo").populate("departamento").populate("usuario");
     
         return salida;
 
@@ -30,12 +30,8 @@ async function obtenerSalida(id, ctx){
 
 async function crearSalida(input, ctx){
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
-
     try{
-        const salida = await new Salida({
-            input,
-            usuario: ctx.usuario.id
-        });
+        const salida = await new Salida(input);
         salida.save();
         return true;
     }
