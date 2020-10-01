@@ -65,7 +65,10 @@ async function crearMantenimiento(input, ctx){
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
     try{
-        const mantenimiento = await new Mantenimiento(input);
+        const mantenimiento = await new Mantenimiento({
+            ...input,
+            usuario: ctx.usuario.id
+        });
         mantenimiento.save();
         return true;
     }
@@ -75,8 +78,21 @@ async function crearMantenimiento(input, ctx){
     }
 }
 
-async function actualizarMantenimiento(){
+async function actualizarMantenimiento(id, input, ctx){
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
+    try{
+        const mantenimiento = await Mantenimiento.findByIdAndUpdate(id, {
+            ...input,
+            updatedAt: Date.now()
+        });
+        if(mantenimiento) return true;
+
+    }
+    catch(error){
+        console.log(error);
+        return false
+    }
 }
 
 async function borrarMantenimiento(){

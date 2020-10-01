@@ -31,7 +31,10 @@ async function obtenerSalida(id, ctx){
 async function crearSalida(input, ctx){
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
     try{
-        const salida = await new Salida(input);
+        const salida = await new Salida({
+            ...input,
+            usuario: ctx.usuario.id
+        });
         salida.save();
         return true;
     }
@@ -41,8 +44,21 @@ async function crearSalida(input, ctx){
     }
 }
 
-async function actualizarSalida(){
+async function actualizarSalida(id, input, ctx){
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
+    try{
+        const salida = await Salida.findByIdAndUpdate(id, {
+            ...input,
+            updatedAt: Date.now()
+        });
+        if(salida) return true;
+
+    }
+    catch(error){
+        console.log(error);
+        return false
+    }
 }
 
 async function borrarSalida(){

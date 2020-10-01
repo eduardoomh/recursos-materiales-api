@@ -276,7 +276,6 @@ input crearEvento{
   hora_inicio: String!
   hora_final: String!
   acomodo_sillas: ID!
-  usuario: ID!
 }
 
 input actualizarEvento{
@@ -303,7 +302,6 @@ input crearMantenimiento{
   hora_inicio: String!
   hora_final: String!
   trabajo_realizado: String!
-  usuario: ID!
 }
 
 input actualizarMantenimiento{
@@ -313,9 +311,11 @@ input actualizarMantenimiento{
   asignado_a: String
   departamento: ID
   fecha: String
+  fecha_final: String
   hora_inicio: String
   hora_final: String
   trabajo_realizado: String
+  equipo_proteccion: String
 }
 
 #input de salidas
@@ -328,7 +328,6 @@ input crearSalida{
   hora_llegada: String!
   vehiculo: ID!
   chofer: String!
-  usuario: ID!
 }
 
 input actualizarSalida{
@@ -475,15 +474,15 @@ type Mutation {
 
     #eventos
     crearEvento(input: crearEvento!): Boolean!
-    actualizarEvento(input: actualizarEvento!): Boolean!
+    actualizarEvento(id: ID!, input: actualizarEvento!): Boolean!
 
     #mantenimientos
     crearMantenimiento(input: crearMantenimiento!): Boolean!
-    actualizarMantenimiento(input: actualizarMantenimiento!): Boolean!
+    actualizarMantenimiento(id: ID!, input: actualizarMantenimiento!): Boolean!
 
     #salidas
     crearSalida(input: crearSalida!): Boolean!
-    actualizarSalida(input: actualizarSalida!): Boolean!
+    actualizarSalida(id: ID!, input: actualizarSalida!): Boolean!
 
     #departamentos
     crearDepartamento(input: crearDepartamento!): Boolean!

@@ -32,7 +32,10 @@ async function crearEvento(input, ctx){
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
     try{
-        const evento = await new Evento(input);
+        const evento = await new Evento({
+            ...input,
+            usuario: ctx.usuario.id
+        });
         evento.save();
         return true;
     }
@@ -42,14 +45,15 @@ async function crearEvento(input, ctx){
     } 
 }
 
-async function actualizarEvento(input, ctx){
-    const { id } = input;
+async function actualizarEvento(id, input, ctx){
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
     try{
-        const evento = await Evento.findByIdAndUpdate(id, input);
-        console.log(evento);
-        return true
+        const evento = await Evento.findByIdAndUpdate(id, {
+            ...input,
+            updatedAt: Date.now()
+        });
+        if(evento) return true;
 
     }
     catch(error){
@@ -63,11 +67,20 @@ async function borrarEvento(){
 
 }
 
+async function buscarEvento(search){
+    const eventos = await Evento.find({
+        nombre: { $regex: search, $options: "i"}
+    });
+    return eventos;
+}
+
 
 module.exports = {
     obtenerEventos,
     obtenerEvento,
     crearEvento,
     actualizarEvento,
-    borrarEvento
+    borrarEvento,
+    buscarEvento
+
 }

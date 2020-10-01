@@ -83,15 +83,15 @@ const resolvers = {
 
         //eventos
         crearEvento: (_, args, ctx) => eventoController.crearEvento(args.input, ctx),
-        actualizarEvento: (_, args, ctx) => eventoController.actualizarEvento(args.input, ctx),
+        actualizarEvento: (_, args, ctx) => eventoController.actualizarEvento(args.id, args.input, ctx),
 
         //mantenimientos
         crearMantenimiento: (_, args, ctx) => mantenimientoController.crearMantenimiento(args.input, ctx),
-        actualizarMantenimiento: (_, args, ctx) => mantenimientoController.actualizarMantenimiento(args.input, ctx),
+        actualizarMantenimiento: (_, args, ctx) => mantenimientoController.actualizarMantenimiento(args.id, args.input, ctx),
 
         //salidas
         crearSalida: (_, args, ctx) => salidaController.crearSalida(args.input, ctx),
-        actualizarSalida: (_, args, ctx) => salidaController.actualizarSalida(args.input, ctx),
+        actualizarSalida: (_, args, ctx) => salidaController.actualizarSalida(args.id, args.input, ctx),
         
 
         //departamentos
