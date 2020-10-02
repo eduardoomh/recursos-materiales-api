@@ -42,8 +42,20 @@ async function crearVehiculo(input, ctx){
     }
 }
 
-async function actualizarVehiculo(){
+async function actualizarVehiculo(id, input, ctx){
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
+    try{
+        const vehiculo = Vehiculo.findByIdAndUpdate(id, {
+            ...input,
+            updatedAt: Date.now()
+        });
+        if(vehiculo) return true;
+    }
+    catch(error){
+        console.log(error);
+        return false
+    }
 }
 
 async function borrarVehiculo(){

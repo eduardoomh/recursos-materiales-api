@@ -41,8 +41,21 @@ async function crearDepartamento(input, ctx){
     }
 }
 
-async function actualizarDepartamento(){
+async function actualizarDepartamento(id, input, ctx){
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
+    try{
+        const departamento = await Departamento.findByIdAndUpdate(id, {
+            ...input,
+            updatedAt: Date.now()
+        });
+        if(departamento) return true;
+        
+    }
+    catch(error){
+        console.log(error);
+        return false
+    }
 }
 
 async function borrarDepartamento(){

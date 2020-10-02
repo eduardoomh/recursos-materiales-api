@@ -43,8 +43,21 @@ async function crearSubdireccion(input, ctx){
 
 }
 
-async function actualizarSubdireccion(){
+async function actualizarSubdireccion(id, input, ctx){
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
+    try{
+        const subdireccion = await Subdirection.findByIdAndUpdate(id, {
+            ...input,
+            updatedAt: Date.now()
+        });
+        if(subdireccion) return true;
+  
+    }
+    catch(error){
+        console.log(error);
+        return false
+    }
 }
 
 async function borrarSubdireccion(){

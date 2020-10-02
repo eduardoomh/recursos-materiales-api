@@ -83,44 +83,44 @@ const resolvers = {
 
         //eventos
         crearEvento: (_, args, ctx) => eventoController.crearEvento(args.input, ctx),
-        actualizarEvento: (_, args, ctx) => eventoController.actualizarEvento(args.id, args.input, ctx),
+        actualizarEvento: (_, {id, input}, ctx) => eventoController.actualizarEvento(id, input, ctx),
 
         //mantenimientos
         crearMantenimiento: (_, args, ctx) => mantenimientoController.crearMantenimiento(args.input, ctx),
-        actualizarMantenimiento: (_, args, ctx) => mantenimientoController.actualizarMantenimiento(args.id, args.input, ctx),
+        actualizarMantenimiento: (_, {id, input}, ctx) => mantenimientoController.actualizarMantenimiento(id, input, ctx),
 
         //salidas
         crearSalida: (_, args, ctx) => salidaController.crearSalida(args.input, ctx),
-        actualizarSalida: (_, args, ctx) => salidaController.actualizarSalida(args.id, args.input, ctx),
+        actualizarSalida: (_, {id, input}, ctx) => salidaController.actualizarSalida(id, input, ctx),
         
 
         //departamentos
         crearDepartamento: (_, args, ctx) => departamentoController.crearDepartamento(args.input, ctx),
-        actualizarDepartamento: (_, args, ctx) => departamentoController.actualizarDepartamento(args.input, ctx),
+        actualizarDepartamento: (_, {id, input}, ctx) => departamentoController.actualizarDepartamento(id, input, ctx),
 
         //vehiculos
         crearVehiculo: (_, args, ctx) => vehiculoController.crearVehiculo(args.input, ctx),
-        actualizarVehiculo: (_, args, ctx) => vehiculoController.actualizarVehiculo(args.input, ctx),
+        actualizarVehiculo: (_, {id, input}, ctx) => vehiculoController.actualizarVehiculo(id, input, ctx),
 
         //sitios
         crearSitio: (_, args, ctx) => sitioController.crearSitio(args.input, ctx),
-        actualizarSitio: (_, args, ctx) => sitioController.actualizarSitio(args.input, ctx),
+        actualizarSitio: (_, {id, input}, ctx) => sitioController.actualizarSitio(id, input, ctx),
 
         //edificios
         crearEdificio: (_, args, ctx) => edificioController.crearEdificio(args.input, ctx),
-        actualizarEdificio: (_, args, ctx) => edificioController.actualizarEdificio(args.input, ctx),
+        actualizarEdificio: (_, {id, input}, ctx) => edificioController.actualizarEdificio(id, input, ctx),
 
         //subdirecciones
         crearSubdireccion: (_, args, ctx) => subdireccionController.crearSubdireccion(args.input, ctx),
-        actualizarSubdireccion: (_, args, ctx) => subdireccionController.actualizarSubdireccion(args.input, ctx),
+        actualizarSubdireccion: (_, {id, input}, ctx) => subdireccionController.actualizarSubdireccion(id, input, ctx),
 
         //tipoorders
         crearTipoorder: (_, args, ctx) => tipoorderController.crearTipoOrder(args.input, ctx),
-        actualizarTipoorder: (_, args, ctx) => tipoorderController.actualizarTipoOrder(args.input, ctx),
+        actualizarTipoorder: (_, {id, input}, ctx) => tipoorderController.actualizarTipoOrder(id, input, ctx),
 
         //acomodosillas
         crearAcomodosilla: (_, args, ctx) => acomodosillaController.crearAcomodosilla(args.input, ctx),
-        actualizarAcomodosilla: (_, args, ctx) => acomodosillaController.actualizarAcomodosilla(args.input, ctx),
+        actualizarAcomodosilla: (_, {id, input}, ctx) => acomodosillaController.actualizarAcomodosilla(id, input, ctx),
 
         //evidencias
         crearEvidencia: (_, args, ctx) => evidenciaController.crearEvidencia(args.input, ctx),
@@ -128,11 +128,11 @@ const resolvers = {
 
         //puesto
         crearPuesto: (_, args, ctx) => puestoController.crearPuesto(args.input, ctx),
-        actualizarPuesto: (_, args, ctx) => puestoController.actualizarPuesto(args.input, ctx),
+        actualizarPuesto: (_, {id, input}, ctx) => puestoController.actualizarPuesto(id, input, ctx),
 
         //permiso
         crearPermiso: (_, args, ctx) => permisoController.crearPermiso(args.input, ctx),
-        actualizarPermiso: (_, args, ctx) => permisoController.actualizarPermiso(args.input, ctx),
+        actualizarPermiso: (_, {id, input}, ctx) => permisoController.actualizarPermiso(id, input, ctx),
 
 
     },

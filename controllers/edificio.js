@@ -42,8 +42,20 @@ async function crearEdificio(input, ctx){
     }
 }
 
-async function actualizarEdificio(){
+async function actualizarEdificio(id, input, ctx){
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
+    try{
+        const edificio = await Edificio.findByIdAndUpdate(id, {
+            ...input,
+            updatedAt: Date.now()
+        });
+        if(edificio) return true;
+    }
+    catch(error){
+        console.log(error);
+        return false
+    }
 }
 
 async function borrarEdificio(){

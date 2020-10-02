@@ -486,27 +486,27 @@ type Mutation {
 
     #departamentos
     crearDepartamento(input: crearDepartamento!): Boolean!
-    actualizarDepartamento(input: actualizarDepartamento!): Boolean!
+    actualizarDepartamento(id: ID!, input: actualizarDepartamento!): Boolean!
 
     #vehiculos
     crearVehiculo(input: crearVehiculo!): Boolean!
-    actualizarVehiculo(input: actualizarVehiculo!): Boolean!
+    actualizarVehiculo(id: ID!, input: actualizarVehiculo!): Boolean!
 
     #sitios
     crearSitio(input: crearSitio!): Boolean!
-    actualizarSitio(input: actualizarSitio!): Boolean!
+    actualizarSitio(id: ID!, input: actualizarSitio!): Boolean!
 
     #edificios
     crearEdificio(input: crearEdificio!): Boolean!
-    actualizarEdificio(input: actualizarEdificio!): Boolean!
+    actualizarEdificio(id: ID!, input: actualizarEdificio!): Boolean!
 
     #subdirecciones
     crearSubdireccion(input: crearSubdireccion!): Boolean!
-    actualizarSubdireccion(input: actualizarSubdireccion!): Boolean!
+    actualizarSubdireccion(id: ID!, input: actualizarSubdireccion!): Boolean!
 
     #acomodosillas
     crearAcomodosilla(input: crearAcomodosilla!): Boolean!
-    actualizarAcomodosilla(input: actualizarAcomodosilla!): Boolean!
+    actualizarAcomodosilla(id: ID!, input: actualizarAcomodosilla!): Boolean!
 
     #evidencia
     crearEvidencia(input: crearEvidencia!): Boolean!
@@ -514,15 +514,15 @@ type Mutation {
 
     #tipoorder
     crearTipoorder(input: crearTipoorder!): Boolean!
-    actualizarTipoorder(input: actualizarTipoorder!): Boolean!
+    actualizarTipoorder(id: ID!, input: actualizarTipoorder!): Boolean!
 
     #puesto
     crearPuesto(input: crearPuesto!): Boolean!
-    actualizarPuesto(input: actualizarPuesto!): Boolean!
+    actualizarPuesto(id: ID!, input: actualizarPuesto!): Boolean!
 
     #permiso
     crearPermiso(input: crearPermiso!): Boolean!
-    actualizarPermiso(input: actualizarPermiso!): Boolean!
+    actualizarPermiso(id: ID!, input: actualizarPermiso!): Boolean!
 
   }
 `;

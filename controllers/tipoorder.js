@@ -44,8 +44,20 @@ async function crearTipoOrder(input, ctx){
     }
 }
 
-async function actualizarTipoOrder(){
+async function actualizarTipoOrder(id, input, ctx){
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
+    try{
+        const tipoorder = await Tipoorder.findByIdAndUpdate(id, {
+            ...input,
+            updatedAt: Date.now()
+        });
+        if(tipoorder) return true;
+    }
+    catch(error){
+        console.log(error);
+        return false
+    }
 }
 
 async function borrarTipoOrder(){

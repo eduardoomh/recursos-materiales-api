@@ -41,7 +41,21 @@ async function crearPermiso(input, ctx){
     }
 }
 
-async function actualizarPermiso(){
+async function actualizarPermiso(id, input, ctx){
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
+
+    try{
+        const permiso = await Permiso.findByIdAndUpdate(id, {
+            ...input,
+            updatedAt: Date.now()
+        });
+        if(permiso) return true;
+        return true;
+    }
+    catch(error){
+        console.log(error);
+        return false
+    }
 
 }
 

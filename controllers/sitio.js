@@ -43,8 +43,22 @@ async function crearSitio(input, ctx){
     }
 }
 
-async function actualizarSitio(){
+async function actualizarSitio(id, input, ctx){
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
+    try{
+        const sitio = await Sitio.findByIdAndUpdate(id, {
+            ...input,
+            updatedAt: Date.now()
+        });
+        if(sitio) return true;
+
+        
+    }
+    catch(error){
+        console.log(error);
+        return false
+    }
 }
 
 async function borrarSitio(){
