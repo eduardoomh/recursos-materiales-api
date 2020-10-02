@@ -411,16 +411,19 @@ type Query {
     #eventos
     obtenerEventos(input: PaginateInput!): [Evento]!
     obtenerEvento(id: ID!): Evento
+    buscarEvento(search: String): [Evento]!,
 
     #mantenimientos
     obtenerReparaciones(input: PaginateInput!): [Mantenimiento]!
     obtenerServicios(input: PaginateInput!): [Mantenimiento]!
     obtenerTransportes(input: PaginateInput!): [Mantenimiento]!
     obtenerMantenimiento(id: ID!): Mantenimiento
+    buscarMantenimiento(search: String): [Mantenimiento]!,
 
     #salidas
     obtenerSalidas(input: PaginateInput!): [Salida]!
     obtenerSalida(id: ID!): Salida
+    buscarSalida(search: String): [Salida]!,
 
     #departamentos
     obtenerDepartamentos(input: PaginateInput!): [Departamento]!

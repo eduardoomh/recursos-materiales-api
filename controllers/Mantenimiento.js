@@ -99,6 +99,13 @@ async function borrarMantenimiento(){
 
 }
 
+async function buscarMantenimiento(search){
+    const mantenimientos = await Mantenimiento.find({
+        nombre: { $regex: search, $options: "i"}
+    });
+    return mantenimientos;
+}
+
 
 module.exports = {
     obtenerReparaciones,
@@ -107,5 +114,6 @@ module.exports = {
     obtenerMantenimiento,
     crearMantenimiento,
     actualizarMantenimiento,
-    borrarMantenimiento
+    borrarMantenimiento,
+    buscarMantenimiento
 }

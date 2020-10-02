@@ -22,16 +22,19 @@ const resolvers = {
       //eventos
       obtenerEventos: (_, args, ctx) => eventoController.obtenerEventos(args.input, ctx),
       obtenerEvento: (_, args, ctx) => eventoController.obtenerEvento(args.id, ctx),
+      buscarEvento: (_, args, ctx) => eventoController.buscarEvento(args.search, ctx),
 
       //mantenimientos
       obtenerReparaciones: (_, args, ctx) => mantenimientoController.obtenerReparaciones(args.input, ctx),
       obtenerServicios: (_, args, ctx) => mantenimientoController.obtenerServicios(args.input, ctx),
       obtenerTransportes: (_, args, ctx) => mantenimientoController.obtenerTransportes(args.input, ctx),
       obtenerMantenimiento: (_, args, ctx) => mantenimientoController.obtenerMantenimiento(args.id, ctx),
+      buscarMantenimiento: (_, args, ctx) => mantenimientoController.buscarMantenimiento(args.search, ctx),
 
       //salidas
       obtenerSalidas: (_, args, ctx) => salidaController.obtenerSalidas(args.input, ctx),
       obtenerSalida: (_, args, ctx) => salidaController.obtenerSalida(args.id, ctx),
+      buscarSalida: (_, args, ctx) => salidaController.buscarSalida(args.search, ctx),
 
       //departamentos
       obtenerDepartamentos: (_, args, ctx) => departamentoController.obtenerDepartamentos(args.input, ctx),

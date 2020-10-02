@@ -19,8 +19,8 @@ async function obtenerPermiso(id, ctx){
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
     try{
-        const permiso = await Permiso.findById(id).populate("puesto");
-        return permiso;
+        const permiso = await Permiso.findById(id).populate("puesto").populate("usuario").populate("departamento");
+        if(permiso) return permiso;
     }
     catch(err){
         console.log(err);

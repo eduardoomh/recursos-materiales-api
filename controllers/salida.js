@@ -65,11 +65,19 @@ async function borrarSalida(){
 
 }
 
+async function buscarSalida(search){
+    const salidas = await Salida.find({
+        destino: { $regex: search, $options: "i"}
+    });
+    return salidas;
+}
+
 
 module.exports = {
     obtenerSalidas,
     obtenerSalida,
     crearSalida,
     actualizarSalida,
-    borrarSalida
+    borrarSalida,
+    buscarSalida
 }
