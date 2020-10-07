@@ -1,4 +1,6 @@
 const Mantenimiento = require("../models/mantenimiento");
+const Usuario = require("../models/usuario");
+const bcrypt = require("bcryptjs");
 
 async function obtenerReparaciones(args, ctx){
     const { cantidad, pagina } = args;
@@ -106,6 +108,30 @@ async function buscarMantenimiento(search){
     return mantenimientos;
 }
 
+async function aprobarMantenimiento(id, input, contrasena, ctx){
+    const { id: idUser } = ctx.usuario;
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
+
+    const usuarioEncontrado = await Usuario.findById(idUser);
+    if(!usuarioEncontrado) throw new Error("El usuario no existe");
+
+    const contrasenaCorrecta = await bcrypt.compare(contrasena, usuarioEncontrado.contrasena);
+    if(!contrasenaCorrecta) throw new Error("La contrasena introducida no es correcta");
+
+    try{
+        const mantenimiento = await Mantenimiento.findByIdAndUpdate(id, {
+            ...input,
+            updatedAt: Date.now()
+        });
+
+        if(mantenimiento) return true;
+    }
+    catch(error){
+        console.log(error);
+        return false;
+    }
+}
+
 
 module.exports = {
     obtenerReparaciones,
@@ -115,5 +141,6 @@ module.exports = {
     crearMantenimiento,
     actualizarMantenimiento,
     borrarMantenimiento,
-    buscarMantenimiento
+    buscarMantenimiento,
+    aprobarMantenimiento
 }

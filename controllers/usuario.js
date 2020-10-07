@@ -34,6 +34,19 @@ async function obtenerUsuarios(input, ctx){
 
 }
 
+async function obtenerUsuariosPendientes(input, ctx){
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
+    const {cantidad, pagina} = input;
+    try{
+        const users = await Usuario.find().where("estatus", "pendiente").limit(cantidad).skip((pagina - 1) * cantidad);
+        return users;
+    }
+    catch(error){
+        console.log(error);
+    }
+
+}
+
 async function obtenerUsuario(id, ctx){
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
@@ -97,7 +110,7 @@ async function actualizarUsuario(input, ctx){
 
     if(input.correo){
         const correoExistente = await Usuario.findOne({correo: input.correo});
-        if(correoExistente) throw new Error("El correo ya esta en uso");
+        if(correoExistente.correo !== ctx.usuario.correo) throw new Error("El correo ya esta en uso");
     }
 
     try{
@@ -109,17 +122,23 @@ async function actualizarUsuario(input, ctx){
             const salt = await bcrypt.genSaltSync(10);
             const nuevaContrasenaEncriptada = await bcrypt.hash(input.contrasenaNueva, salt);
             const ActualizacionTerminada = await Usuario.findByIdAndUpdate(id, {password: contrasenaNueva});
-            if(ActualizacionTerminada) return true;
+            if(ActualizacionTerminada){
+                const actualizado = await Usuario.findById(id);
+                return actualizado;
+            } 
 
         }else{
             const ActualizacionTerminada = await Usuario.findByIdAndUpdate(id, input);
-            if(ActualizacionTerminada) return true;
+            if(ActualizacionTerminada){
+                const actualizado = await Usuario.findById(id);
+                return actualizado;
+            } 
         }
 
     }
     catch(error){
         console.log(error);
-        return false;
+        return null;
     }
 }
 
@@ -193,5 +212,6 @@ module.exports = {
     aprobarUsuario,
     actualizarAvatar,
     borrarAvatar,
-    busqueda
+    busqueda,
+    obtenerUsuariosPendientes
 }

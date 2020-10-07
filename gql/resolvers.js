@@ -18,6 +18,7 @@ const resolvers = {
       //usuarios
       obtenerUsuarios: (_, args, ctx) => usuarioController.obtenerUsuarios(args.input, ctx),
       obtenerUsuario: (_, args, ctx) => usuarioController.obtenerUsuario(args.id, ctx),
+      obtenerUsuariosPendientes: (_, args, ctx) => usuarioController.obtenerUsuariosPendientes(args.input, ctx),
 
       //eventos
       obtenerEventos: (_, args, ctx) => eventoController.obtenerEventos(args.input, ctx),
@@ -75,6 +76,7 @@ const resolvers = {
       //permisos
       obtenerPermisos: (_, args, ctx) => permisoController.obtenerPermisos(args.input, ctx),
       obtenerPermiso: (_, args, ctx) => permisoController.obtenerPermiso(args.id, ctx),
+      obtenerPermisoUsuario: (_, args, ctx) => permisoController.obtenerPermisoUsuario(args.id, ctx)
       
     },
     Mutation: {
@@ -87,10 +89,12 @@ const resolvers = {
         //eventos
         crearEvento: (_, args, ctx) => eventoController.crearEvento(args.input, ctx),
         actualizarEvento: (_, {id, input}, ctx) => eventoController.actualizarEvento(id, input, ctx),
+        aprobarEvento: (_, {id, input, contrasena}, ctx) => eventoController.aprobarEvento(id, input, contrasena, ctx),
 
         //mantenimientos
         crearMantenimiento: (_, args, ctx) => mantenimientoController.crearMantenimiento(args.input, ctx),
         actualizarMantenimiento: (_, {id, input}, ctx) => mantenimientoController.actualizarMantenimiento(id, input, ctx),
+        aprobarMantenimiento: (_, {id, input, contrasena}, ctx) => mantenimientoController.aprobarMantenimiento(id, input, contrasena, ctx),
 
         //salidas
         crearSalida: (_, args, ctx) => salidaController.crearSalida(args.input, ctx),

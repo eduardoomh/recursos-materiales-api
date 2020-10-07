@@ -1,4 +1,6 @@
 const Evento = require("../models/evento");
+const Usuario = require("../models/usuario");
+const bcrypt = require("bcryptjs");
 
 async function obtenerEventos(input, ctx){
     const { cantidad, pagina } = input;
@@ -74,6 +76,31 @@ async function buscarEvento(search){
     return eventos;
 }
 
+async function aprobarEvento(id, input, contrasena, ctx){
+    const { id: idUser } = ctx.usuario;
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
+
+    const usuarioEncontrado = await Usuario.findById(idUser);
+    if(!usuarioEncontrado) throw new Error("El usuario no existe");
+
+    const contrasenaCorrecta = await bcrypt.compare(contrasena, usuarioEncontrado.contrasena);
+    if(!contrasenaCorrecta) throw new Error("La contrasena introducida no es correcta");
+
+    try{
+        console.log(input);
+        const evento = await Evento.findByIdAndUpdate(id, {
+            ...input,
+            updatedAt: Date.now()
+        });
+
+        if(evento) return true;
+    }
+    catch(error){
+        console.log(error);
+        return false;
+    }
+}
+
 
 module.exports = {
     obtenerEventos,
@@ -81,6 +108,7 @@ module.exports = {
     crearEvento,
     actualizarEvento,
     borrarEvento,
-    buscarEvento
+    buscarEvento,
+    aprobarEvento
 
 }

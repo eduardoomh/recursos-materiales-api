@@ -27,6 +27,19 @@ async function obtenerPermiso(id, ctx){
     }
 }
 
+async function obtenerPermisoUsuario(id, ctx){
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
+
+    try{
+        const permiso = await Permiso.findOne().where("usuario", id).populate("usuario").populate("departamento").populate("puesto");
+        if(permiso) return permiso;
+    }
+    catch(err){
+        console.log(err);
+    }
+}
+
+
 async function crearPermiso(input, ctx){
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
@@ -67,6 +80,7 @@ async function borrarPermiso(){
 module.exports = {
     obtenerPermisos,
     obtenerPermiso,
+    obtenerPermisoUsuario,
     crearPermiso,
     actualizarPermiso,
     borrarPermiso

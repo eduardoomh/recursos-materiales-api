@@ -194,6 +194,7 @@ input actualizarUsuarioInput{
   descripcion: String
   telefono: String
   updatedAt: String
+  estatus: String
 }
 
 #input de evidencias
@@ -288,6 +289,8 @@ input actualizarEvento{
   hora_inicio: String
   hora_final: String
   acomodo_sillas: ID
+  verificado: Boolean
+  aprobado: Boolean
 }
 
 #input de mantenimientos
@@ -316,6 +319,9 @@ input actualizarMantenimiento{
   hora_final: String
   trabajo_realizado: String
   equipo_proteccion: String
+  verificado: Boolean
+  aprobado: Boolean
+
 }
 
 #input de salidas
@@ -405,13 +411,14 @@ input PaginateInput{
 #queries
 type Query {
   #usuarios
-    obtenerUsuarios(input: PaginateInput!): [Usuario]!,
+    obtenerUsuarios(input: PaginateInput!): [Usuario]!
     obtenerUsuario(id: ID!): Usuario!
+    obtenerUsuariosPendientes(input: PaginateInput!): [Usuario]!
 
     #eventos
     obtenerEventos(input: PaginateInput!): [Evento]!
     obtenerEvento(id: ID!): Evento
-    buscarEvento(search: String): [Evento]!,
+    buscarEvento(search: String): [Evento]!
 
     #mantenimientos
     obtenerReparaciones(input: PaginateInput!): [Mantenimiento]!
@@ -440,6 +447,7 @@ type Query {
     #permisos
     obtenerPermisos(input: PaginateInput!): [Permiso]!
     obtenerPermiso(id: ID!): Permiso
+    obtenerPermisoUsuario(id: ID!): Permiso
 
     #subdirecciones
     obtenerSubdirecciones(input: PaginateInput!): [Subdirection]!
@@ -472,16 +480,18 @@ type Mutation {
   #usuario
     crearUsuario(input: usuarioInput!): Usuario
     login(input: loginInput!): Token
-    aprobarUsuario(id: ID!): Boolean
-    actualizarUsuario(input: actualizarUsuarioInput!): Boolean!
+    aprobarUsuario(id: ID!): Boolean!
+    actualizarUsuario(input: actualizarUsuarioInput!): Usuario!
 
     #eventos
     crearEvento(input: crearEvento!): Boolean!
     actualizarEvento(id: ID!, input: actualizarEvento!): Boolean!
+    aprobarEvento(id: ID!, input: actualizarEvento!, contrasena: String!): Boolean!
 
     #mantenimientos
     crearMantenimiento(input: crearMantenimiento!): Boolean!
     actualizarMantenimiento(id: ID!, input: actualizarMantenimiento!): Boolean!
+    aprobarMantenimiento(id: ID!, input: actualizarMantenimiento!, contrasena: String!): Boolean!
 
     #salidas
     crearSalida(input: crearSalida!): Boolean!
