@@ -101,6 +101,22 @@ async function aprobarEvento(id, input, contrasena, ctx){
     }
 }
 
+async function eventoFechas(input, ctx){
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
+    const {inicio, final} = input;
+
+    try{
+        const eventos = await Evento.find({ fecha: { $gte: inicio, $lte: final } });
+
+        if(eventos) return eventos;
+    }
+    catch(error){
+        console.log(error);
+        return [];
+    }
+
+}
+
 
 module.exports = {
     obtenerEventos,
@@ -109,6 +125,7 @@ module.exports = {
     actualizarEvento,
     borrarEvento,
     buscarEvento,
-    aprobarEvento
+    aprobarEvento,
+    eventoFechas
 
 }

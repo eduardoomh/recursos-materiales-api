@@ -132,6 +132,22 @@ async function aprobarMantenimiento(id, input, contrasena, ctx){
     }
 }
 
+async function mantenimientoFechas(input, ctx){
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
+    const {inicio, final} = input;
+
+    try{
+        const mantenimientos = await Mantenimiento.find({ fecha: { $gte: inicio, $lte: final } });
+
+        if(mantenimientos) return mantenimientos;
+    }
+    catch(error){
+        console.log(error);
+        return [];
+    }
+
+}
+
 
 module.exports = {
     obtenerReparaciones,
@@ -142,5 +158,6 @@ module.exports = {
     actualizarMantenimiento,
     borrarMantenimiento,
     buscarMantenimiento,
-    aprobarMantenimiento
+    aprobarMantenimiento,
+    mantenimientoFechas
 }

@@ -24,6 +24,7 @@ const resolvers = {
       obtenerEventos: (_, args, ctx) => eventoController.obtenerEventos(args.input, ctx),
       obtenerEvento: (_, args, ctx) => eventoController.obtenerEvento(args.id, ctx),
       buscarEvento: (_, args, ctx) => eventoController.buscarEvento(args.search, ctx),
+      eventoFechas: (_, args, ctx) => eventoController.eventoFechas(args.input, ctx),
 
       //mantenimientos
       obtenerReparaciones: (_, args, ctx) => mantenimientoController.obtenerReparaciones(args.input, ctx),
@@ -31,6 +32,7 @@ const resolvers = {
       obtenerTransportes: (_, args, ctx) => mantenimientoController.obtenerTransportes(args.input, ctx),
       obtenerMantenimiento: (_, args, ctx) => mantenimientoController.obtenerMantenimiento(args.id, ctx),
       buscarMantenimiento: (_, args, ctx) => mantenimientoController.buscarMantenimiento(args.search, ctx),
+      mantenimientoFechas: (_, args, ctx) => mantenimientoController.mantenimientoFechas(args.input, ctx),
 
       //salidas
       obtenerSalidas: (_, args, ctx) => salidaController.obtenerSalidas(args.input, ctx),

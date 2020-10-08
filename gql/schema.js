@@ -407,6 +407,11 @@ input PaginateInput{
   pagina: Int!
 }
 
+input fechas{
+  inicio: String!
+  final: String!
+}
+
 
 #queries
 type Query {
@@ -419,13 +424,15 @@ type Query {
     obtenerEventos(input: PaginateInput!): [Evento]!
     obtenerEvento(id: ID!): Evento
     buscarEvento(search: String): [Evento]!
+    eventoFechas(input: fechas!): [Evento]!
 
     #mantenimientos
     obtenerReparaciones(input: PaginateInput!): [Mantenimiento]!
     obtenerServicios(input: PaginateInput!): [Mantenimiento]!
     obtenerTransportes(input: PaginateInput!): [Mantenimiento]!
     obtenerMantenimiento(id: ID!): Mantenimiento
-    buscarMantenimiento(search: String): [Mantenimiento]!,
+    buscarMantenimiento(search: String): [Mantenimiento]!
+    mantenimientoFechas(input: fechas!): [Mantenimiento]!
 
     #salidas
     obtenerSalidas(input: PaginateInput!): [Salida]!
