@@ -87,6 +87,7 @@ const resolvers = {
         login: (parent, args, context) => usuarioController.login(args.input),
         aprobarUsuario: (parent, args, context) => usuarioController.aprobarUsuario(args.id),
         actualizarUsuario: (parent, args, context) => usuarioController.actualizarUsuario(args.input, context),
+        actualizarAvatar: (_, {file}, ctx) => usuarioController.actualizarAvatar(file, ctx),
 
         //eventos
         crearEvento: (_, args, ctx) => eventoController.crearEvento(args.input, ctx),
@@ -132,7 +133,7 @@ const resolvers = {
         actualizarAcomodosilla: (_, {id, input}, ctx) => acomodosillaController.actualizarAcomodosilla(id, input, ctx),
 
         //evidencias
-        crearEvidencia: (_, args, ctx) => evidenciaController.crearEvidencia(args.input, ctx),
+        crearEvidencia: (_, {file, input}, ctx) => evidenciaController.crearEvidencia(file, input, ctx),
         actualizarEvidencia: (_, args, ctx) => evidenciaController.actualizarEvidencia(args.input, ctx),
 
         //puesto

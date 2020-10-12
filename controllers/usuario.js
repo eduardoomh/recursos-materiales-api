@@ -1,6 +1,7 @@
 const Usuario = require("../models/usuario");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const awsUploadImage = require("../utils/aws-upload-image");
 
 function crearToken(usuario, SECRET_KEY, expiresIn){
     const { id, nombre, apellidos, correo, numero_control, descripcion, avatar, telefono, estatus } = usuario;
@@ -143,7 +144,8 @@ async function actualizarUsuario(input, ctx){
 }
 
 async function actualizarAvatar(file, ctx){
-    const { id } = ctx.user;
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
+    const { id } = ctx.usuario;
     const { createReadStream, mimetype } = await file;
     const extension = mimetype.split("/")[1];
     const imageName = `avatar/${id}.${extension}`;
@@ -171,7 +173,7 @@ async function borrarAvatar(ctx){
     const { id } = ctx.user;
 
     try{
-        await Usuario.findByIdAndUpdate(id, { avatar: "" });
+        await Usuario.findByIdAndUpdate(id, { avatar: null });
         return true;
 
     }

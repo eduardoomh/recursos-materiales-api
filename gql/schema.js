@@ -170,6 +170,12 @@ type Token{
   token: String!
 }
 
+#tipo avatar
+type subidaAvatar{
+  status: Boolean,
+  urlAvatar: String
+}
+
 #inputs de usuario
 input usuarioInput{
   nombre: String!
@@ -206,7 +212,6 @@ input pedirEvidenciaInput{
 input crearEvidencia{
   solicitud: String!
   tipo: String!
-  imagen: String!
 }
 
 input actualizarEvidencia{
@@ -214,6 +219,7 @@ input actualizarEvidencia{
   tipo: String
   imagen: String
 }
+
 
 #input de subdirections
 input crearSubdireccion{
@@ -413,6 +419,7 @@ input fechas{
 }
 
 
+
 #queries
 type Query {
   #usuarios
@@ -489,6 +496,8 @@ type Mutation {
     login(input: loginInput!): Token
     aprobarUsuario(id: ID!): Boolean!
     actualizarUsuario(input: actualizarUsuarioInput!): Usuario!
+    actualizarAvatar(file: Upload): subidaAvatar
+    borrarAvatar:Boolean!
 
     #eventos
     crearEvento(input: crearEvento!): Boolean!
@@ -529,8 +538,9 @@ type Mutation {
     actualizarAcomodosilla(id: ID!, input: actualizarAcomodosilla!): Boolean!
 
     #evidencia
-    crearEvidencia(input: crearEvidencia!): Boolean!
+    crearEvidencia(file: Upload, input: crearEvidencia!): Boolean!
     actualizarEvidencia(input: actualizarEvidencia!): Boolean!
+
 
     #tipoorder
     crearTipoorder(input: crearTipoorder!): Boolean!
