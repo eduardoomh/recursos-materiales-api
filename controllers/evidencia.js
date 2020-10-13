@@ -7,9 +7,14 @@ async function obtenerEvidencias(input, ctx){
     const { id, tipo } = input;
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
-    const evidencias = await Evidencia.find();
-
-    return evidencias;
+    try{
+        const evidencias = await Evidencia.find().where("solicitud", id).where("tipo", tipo);
+        return evidencias; 
+    }
+    catch(error){
+        console.log(error);
+    }
+    
 }
 
 
