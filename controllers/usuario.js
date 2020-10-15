@@ -59,6 +59,18 @@ async function obtenerUsuario(id, ctx){
     return user;
 }
 
+async function obtenerUsuarioAdmin(ctx){
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
+
+    let user = null;
+    user = await Usuario.find().where("estatus", "administrador");
+    console.log(user)
+
+    if(!user) throw new Error("lo sentimos, El usuario no existe");
+
+    return user;
+}
+
 
 async function crearUsuario(input){
         const nuevoUsuario = input;
@@ -215,5 +227,6 @@ module.exports = {
     actualizarAvatar,
     borrarAvatar,
     busqueda,
-    obtenerUsuariosPendientes
+    obtenerUsuariosPendientes,
+    obtenerUsuarioAdmin
 }

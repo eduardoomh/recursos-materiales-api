@@ -19,6 +19,7 @@ const resolvers = {
       obtenerUsuarios: (_, args, ctx) => usuarioController.obtenerUsuarios(args.input, ctx),
       obtenerUsuario: (_, args, ctx) => usuarioController.obtenerUsuario(args.id, ctx),
       obtenerUsuariosPendientes: (_, args, ctx) => usuarioController.obtenerUsuariosPendientes(args.input, ctx),
+      obtenerUsuarioAdmin: (_, args, ctx) => usuarioController.obtenerUsuarioAdmin(ctx),
 
       //eventos
       obtenerEventos: (_, args, ctx) => eventoController.obtenerEventos(args.input, ctx),
@@ -65,7 +66,7 @@ const resolvers = {
 
       //acomodosillas
       obtenerAcomodosillas: (_, args, ctx) => acomodosillaController.obtenerAcomodosillas(args.input, ctx),
-      obtenerAcomodosilla: (_, args, ctx) => acomodosillaController.obtenerAcomodosilla(args.id),
+      obtenerAcomodosilla: (_, args, ctx) => acomodosillaController.obtenerAcomodosilla(args.id, ctx),
 
       //evidencias
       obtenerEvidencias: (_, args, ctx) => evidenciaController.obtenerEvidencias(args.input, ctx),

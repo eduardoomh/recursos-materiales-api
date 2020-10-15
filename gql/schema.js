@@ -117,7 +117,7 @@ type Vehiculo{
   nombre: String!
   modelo: String!
   placas: String!
-  disponibidad: Boolean!
+  disponibilidad: Boolean!
   createdAt: String!
   updatedAt: String!
 }
@@ -426,6 +426,7 @@ type Query {
     obtenerUsuarios(input: PaginateInput!): [Usuario]!
     obtenerUsuario(id: ID!): Usuario!
     obtenerUsuariosPendientes(input: PaginateInput!): [Usuario]!
+    obtenerUsuarioAdmin: Usuario
 
     #eventos
     obtenerEventos(input: PaginateInput!): [Evento]!
