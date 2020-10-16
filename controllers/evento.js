@@ -65,7 +65,18 @@ async function actualizarEvento(id, input, ctx){
 
 }
 
-async function borrarEvento(){
+async function borrarEvento(id, ctx){
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
+    
+    try{
+        const evento = await Evento.findByIdAndDelete(id);
+        if(evento) return true;
+
+    }
+    catch(error){
+        console.log(error);
+        return false
+    }
 
 }
 

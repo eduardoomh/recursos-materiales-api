@@ -61,8 +61,18 @@ async function actualizarSalida(id, input, ctx){
     }
 }
 
-async function borrarSalida(){
+async function borrarSalida(id, ctx){
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
+    try{
+        const salida = await Salida.findByIdAndDelete(id);
+        if(salida) return true;
+
+    }
+    catch(error){
+        console.log(error);
+        return false
+    }
 }
 
 async function buscarSalida(search){

@@ -185,6 +185,11 @@ input usuarioInput{
   numero_control: String!
 }
 
+input FiltroUsuario{
+  propiedad: String!
+  atributo: String!
+}
+
 input loginInput{
   correo: String!
   contrasena: String!
@@ -423,10 +428,9 @@ input fechas{
 #queries
 type Query {
   #usuarios
-    obtenerUsuarios(input: PaginateInput!): [Usuario]!
+    obtenerUsuarios(input: PaginateInput!, filtro: FiltroUsuario!): [Usuario]!
     obtenerUsuario(id: ID!): Usuario!
     obtenerUsuariosPendientes(input: PaginateInput!): [Usuario]!
-    obtenerUsuarioAdmin: Usuario
 
     #eventos
     obtenerEventos(input: PaginateInput!): [Evento]!
@@ -495,7 +499,7 @@ type Mutation {
   #usuario
     crearUsuario(input: usuarioInput!): Usuario
     login(input: loginInput!): Token
-    aprobarUsuario(id: ID!): Boolean!
+    modificarUsuarios(id: ID!, input: actualizarUsuarioInput!): Boolean!
     actualizarUsuario(input: actualizarUsuarioInput!): Usuario!
     actualizarAvatar(file: Upload): subidaAvatar
     borrarAvatar:Boolean!
@@ -504,15 +508,18 @@ type Mutation {
     crearEvento(input: crearEvento!): Boolean!
     actualizarEvento(id: ID!, input: actualizarEvento!): Boolean!
     aprobarEvento(id: ID!, input: actualizarEvento!, contrasena: String!): Boolean!
+    borrarEvento(id: ID!): Boolean!
 
     #mantenimientos
     crearMantenimiento(input: crearMantenimiento!): Boolean!
     actualizarMantenimiento(id: ID!, input: actualizarMantenimiento!): Boolean!
     aprobarMantenimiento(id: ID!, input: actualizarMantenimiento!, contrasena: String!): Boolean!
+    borrarMantenimiento(id: ID!): Boolean!
 
     #salidas
     crearSalida(input: crearSalida!): Boolean!
     actualizarSalida(id: ID!, input: actualizarSalida!): Boolean!
+    borrarSalida(id: ID!): Boolean!
 
     #departamentos
     crearDepartamento(input: crearDepartamento!): Boolean!

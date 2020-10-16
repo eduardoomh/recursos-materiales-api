@@ -21,11 +21,13 @@ function crearToken(usuario, SECRET_KEY, expiresIn){
     return jwt.sign(payload, SECRET_KEY, { expiresIn });
 }
 
-async function obtenerUsuarios(input, ctx){
+async function obtenerUsuarios(input, filtro, ctx){
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
     const {cantidad, pagina} = input;
+    const { propiedad, atributo } = filtro;
+
     try{
-        const users = await Usuario.find().where("estatus", "aprobado").limit(cantidad).skip((pagina - 1) * cantidad);
+        const users = await Usuario.find().where(propiedad, atributo).limit(cantidad).skip((pagina - 1) * cantidad);
         return users;
 
     }
@@ -35,18 +37,6 @@ async function obtenerUsuarios(input, ctx){
 
 }
 
-async function obtenerUsuariosPendientes(input, ctx){
-    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
-    const {cantidad, pagina} = input;
-    try{
-        const users = await Usuario.find().where("estatus", "pendiente").limit(cantidad).skip((pagina - 1) * cantidad);
-        return users;
-    }
-    catch(error){
-        console.log(error);
-    }
-
-}
 
 async function obtenerUsuario(id, ctx){
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
@@ -58,19 +48,6 @@ async function obtenerUsuario(id, ctx){
 
     return user;
 }
-
-async function obtenerUsuarioAdmin(ctx){
-    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
-
-    let user = null;
-    user = await Usuario.find().where("estatus", "administrador");
-    console.log(user)
-
-    if(!user) throw new Error("lo sentimos, El usuario no existe");
-
-    return user;
-}
-
 
 async function crearUsuario(input){
         const nuevoUsuario = input;
@@ -108,6 +85,7 @@ async function login(input){
     
     if(!usuarioEncontrado) throw new Error("error en el correo y contraseña");
     if(usuarioEncontrado.estatus === "pendiente") throw new Error("Su cuenta aún no ha sido aprobada");
+    if(usuarioEncontrado.estatus === "inactivo") throw new Error("Su cuenta se encuentra inactiva");
 
     const contrasenaExitosa = await bcrypt.compare(contrasena, usuarioEncontrado.contrasena);
     if(!contrasenaExitosa) throw new Error("error en el correo y contraseña");
@@ -202,19 +180,20 @@ async function busqueda(search){
     return users;
 }
 
-async function aprobarUsuario(id){
+async function modificarUsuarios(id, input, ctx){
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
+
     try{
         const usuarioEncontrado = await Usuario.findById(id);
         if(!usuarioEncontrado) throw new Error("El usuario no existe");
 
-        await Usuario.findByIdAndUpdate(id, {estatus: "aprobado"});
+        await Usuario.findByIdAndUpdate(id, input);
         return true
     }
     catch(error){
         console.log(error);
         return false;
     }
-
 }
 
 module.exports = {
@@ -223,10 +202,8 @@ module.exports = {
     crearUsuario,
     login,
     actualizarUsuario,
-    aprobarUsuario,
+    modificarUsuarios,
     actualizarAvatar,
     borrarAvatar,
-    busqueda,
-    obtenerUsuariosPendientes,
-    obtenerUsuarioAdmin
+    busqueda
 }

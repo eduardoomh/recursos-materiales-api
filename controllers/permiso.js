@@ -27,6 +27,7 @@ async function obtenerPermiso(id, ctx){
     }
 }
 
+
 async function obtenerPermisoUsuario(id, ctx){
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 

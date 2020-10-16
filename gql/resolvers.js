@@ -16,10 +16,8 @@ const permisoController = require("../controllers/permiso");
 const resolvers = {
     Query: {
       //usuarios
-      obtenerUsuarios: (_, args, ctx) => usuarioController.obtenerUsuarios(args.input, ctx),
+      obtenerUsuarios: (_, {input, filtro}, ctx) => usuarioController.obtenerUsuarios(input, filtro, ctx),
       obtenerUsuario: (_, args, ctx) => usuarioController.obtenerUsuario(args.id, ctx),
-      obtenerUsuariosPendientes: (_, args, ctx) => usuarioController.obtenerUsuariosPendientes(args.input, ctx),
-      obtenerUsuarioAdmin: (_, args, ctx) => usuarioController.obtenerUsuarioAdmin(ctx),
 
       //eventos
       obtenerEventos: (_, args, ctx) => eventoController.obtenerEventos(args.input, ctx),
@@ -86,7 +84,7 @@ const resolvers = {
         //usuarios
         crearUsuario: (parent, args, context) => usuarioController.crearUsuario(args.input),
         login: (parent, args, context) => usuarioController.login(args.input),
-        aprobarUsuario: (parent, args, context) => usuarioController.aprobarUsuario(args.id),
+        modificarUsuarios: (_, {id, input}, ctx) => usuarioController.modificarUsuarios(id, input, ctx),
         actualizarUsuario: (parent, args, context) => usuarioController.actualizarUsuario(args.input, context),
         actualizarAvatar: (_, {file}, ctx) => usuarioController.actualizarAvatar(file, ctx),
 
@@ -94,15 +92,18 @@ const resolvers = {
         crearEvento: (_, args, ctx) => eventoController.crearEvento(args.input, ctx),
         actualizarEvento: (_, {id, input}, ctx) => eventoController.actualizarEvento(id, input, ctx),
         aprobarEvento: (_, {id, input, contrasena}, ctx) => eventoController.aprobarEvento(id, input, contrasena, ctx),
+        borrarEvento: (_, args, ctx) => eventoController.borrarEvento(args.id, ctx),
 
         //mantenimientos
         crearMantenimiento: (_, args, ctx) => mantenimientoController.crearMantenimiento(args.input, ctx),
         actualizarMantenimiento: (_, {id, input}, ctx) => mantenimientoController.actualizarMantenimiento(id, input, ctx),
         aprobarMantenimiento: (_, {id, input, contrasena}, ctx) => mantenimientoController.aprobarMantenimiento(id, input, contrasena, ctx),
+        borrarMantenimiento: (_, args, ctx) => mantenimientoController.borrarMantenimiento(args.id, ctx),
 
         //salidas
         crearSalida: (_, args, ctx) => salidaController.crearSalida(args.input, ctx),
         actualizarSalida: (_, {id, input}, ctx) => salidaController.actualizarSalida(id, input, ctx),
+        borrarSalida: (_, args, ctx) => salidaController.borrarSalida(args.id, ctx),
         
 
         //departamentos

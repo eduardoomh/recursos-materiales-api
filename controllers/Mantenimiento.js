@@ -97,8 +97,18 @@ async function actualizarMantenimiento(id, input, ctx){
     }
 }
 
-async function borrarMantenimiento(){
+async function borrarMantenimiento(id, ctx){
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
+    try{
+        const mantenimiento = await Mantenimiento.findByIdAndDelete(id);
+        if(mantenimiento) return true;
+
+    }
+    catch(error){
+        console.log(error);
+        return false
+    }
 }
 
 async function buscarMantenimiento(search){
