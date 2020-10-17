@@ -199,8 +199,8 @@ input actualizarUsuarioInput{
   nombre: String
   apellidos: String
   correo: String
-  contrasenaActual: String
-  contrasenaNueva: String
+  contrasena_actual: String
+  contrasena_nueva: String
   numero_control: String
   descripcion: String
   telefono: String
@@ -548,6 +548,7 @@ type Mutation {
     #evidencia
     crearEvidencia(file: Upload, input: crearEvidencia!): Boolean!
     actualizarEvidencia(input: actualizarEvidencia!): Boolean!
+    borrarEvidencia(id: ID!): Boolean!
 
 
     #tipoorder

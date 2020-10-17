@@ -105,14 +105,14 @@ async function actualizarUsuario(input, ctx){
     }
 
     try{
-        if(input.contrasenaActual && input.contrasenaNueva){
-            const usuarioEncontrado = await User.findById(id);
-            const contrasenaCorrecta = await bcrypt.compare(input.contrasenaActual, usuarioEncontrado.contrasena);
+        if(input.contrasena_actual && input.contrasena_nueva){
+            const usuarioEncontrado = await Usuario.findById(id);
+            const contrasenaCorrecta = await bcrypt.compare(input.contrasena_actual, usuarioEncontrado.contrasena);
 
             if(!contrasenaCorrecta) throw new Error("contraseña incorrecta");
             const salt = await bcrypt.genSaltSync(10);
-            const nuevaContrasenaEncriptada = await bcrypt.hash(input.contrasenaNueva, salt);
-            const ActualizacionTerminada = await Usuario.findByIdAndUpdate(id, {password: contrasenaNueva});
+            const nuevaContrasenaEncriptada = await bcrypt.hash(input.contrasena_nueva, salt);
+            const ActualizacionTerminada = await Usuario.findByIdAndUpdate(id, {contrasena: nuevaContrasenaEncriptada});
             if(ActualizacionTerminada){
                 const actualizado = await Usuario.findById(id);
                 return actualizado;

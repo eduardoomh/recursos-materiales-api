@@ -137,6 +137,7 @@ const resolvers = {
         //evidencias
         crearEvidencia: (_, {file, input}, ctx) => evidenciaController.crearEvidencia(file, input, ctx),
         actualizarEvidencia: (_, args, ctx) => evidenciaController.actualizarEvidencia(args.input, ctx),
+        borrarEvidencia: (_, args, ctx) => evidenciaController.borrarEvidencia(args.id, ctx),
 
         //puesto
         crearPuesto: (_, args, ctx) => puestoController.crearPuesto(args.input, ctx),

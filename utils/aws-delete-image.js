@@ -10,24 +10,21 @@ const s3 = new AWS.S3({
     secretAccessKey: SECRET
 });
 
-async function awsUploadImage(file, filePath) {
+async function awsDeleteImage(filePath) {
     const params = {
         Bucket: BUCKET_NAME,
-        Key: `${filePath}`,
-        Body: file,
+        Key: `${filePath}`
     };
 
     try {
-        const response = await s3.upload(params).promise();
-        return response.Location;
-
+         const response = await s3.deleteObject(params).promise();
+         return true;
     }
     catch (error) {
         console.log(error);
-        throw new Error();
+        throw new Error("La imagen no ha podido ser eliminada");
     }
 }
 
 
-module.exports = awsUploadImage;
-
+module.exports = awsDeleteImage;

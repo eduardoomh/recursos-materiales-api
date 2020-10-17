@@ -1,5 +1,6 @@
 const Evidencia = require("../models/evidencia");
 const awsUploadImage = require("../utils/aws-upload-image");
+const awsDeleteImage = require("../utils/aws-delete-image");
 const {v4: uuidv4} = require("uuid");
 
 
@@ -58,8 +59,28 @@ async function crearEvidencia(file, input, ctx){
         }
 }
 
-async function borrarEvidencia(){
+async function borrarEvidencia(id, ctx){
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
+    try{
+        const evidencia = await Evidencia.findById(id);
+        if(Evidencia.length === 0){
+            throw new Error("La imagen no ha sido encontrada");
+        }
+
+        const { imagen } = evidencia;
+        const imageName = imagen.substring(50);
+        const result = await awsDeleteImage(imageName);
+        if(!result) throw new Error("Lo sentimos, la imagen no ha sido eliminada");
+
+        const borrarEvidencia = await Evidencia.findByIdAndDelete(id);
+        if(!borrarEvidencia) return false;
+         return true;
+    }
+    catch(err){
+        console.log(err);
+        return false;
+    }
 }
 
 
