@@ -1,4 +1,6 @@
 const Salida = require("../models/salida");
+const Evidencia = require("../models/evidencia");
+const EvidenciaController = require("../controllers/evidencia");
 
 async function obtenerSalidas(input, ctx){
     const { cantidad, pagina } = input;
@@ -65,6 +67,12 @@ async function borrarSalida(id, ctx){
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
     try{
+        const evidencias = await Evidencia.find().where("tipo", "salidas").where("solicitud", id);
+        if(evidencias.length > 0){
+            for await (const data of evidencias){
+                await EvidenciaController.borrarEvidencia(data._id,ctx);
+            }
+        }
         const salida = await Salida.findByIdAndDelete(id);
         if(salida) return true;
 

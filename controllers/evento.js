@@ -1,5 +1,7 @@
 const Evento = require("../models/evento");
 const Usuario = require("../models/usuario");
+const Evidencia = require("../models/evidencia");
+const EvidenciaController = require("../controllers/evidencia");
 const bcrypt = require("bcryptjs");
 
 async function obtenerEventos(input, ctx){
@@ -69,6 +71,12 @@ async function borrarEvento(id, ctx){
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
     
     try{
+        const evidencias = await Evidencia.find().where("tipo", "eventos").where("solicitud", id);
+        if(evidencias.length > 0){
+            for await (const data of evidencias){
+                await EvidenciaController.borrarEvidencia(data._id,ctx);
+            }
+        }
         const evento = await Evento.findByIdAndDelete(id);
         if(evento) return true;
 
