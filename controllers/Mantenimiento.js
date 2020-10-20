@@ -8,7 +8,7 @@ async function obtenerReparaciones(args, ctx){
     const { cantidad, pagina } = args;
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
     try{
-        const mantenimientos = await Mantenimiento.find().limit(cantidad)
+        const mantenimientos = await Mantenimiento.find().sort({fecha: -1}).limit(cantidad)
         .skip((pagina - 1) * cantidad);
 
         return mantenimientos; 
@@ -18,6 +18,23 @@ async function obtenerReparaciones(args, ctx){
     }
 
 }
+
+async function obtenerMantenimientosFiltro(input, filtro, ctx){
+    const { cantidad, pagina } = input;
+    const { propiedad, atributo } = filtro;
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
+    try{
+        const mantenimientos = await Mantenimiento.find().where(propiedad, atributo).sort({fecha: -1}).limit(cantidad)
+        .skip((pagina - 1) * cantidad);
+    
+        return mantenimientos;
+
+    }
+    catch(err){
+        console.log(err);
+    }
+}
+
 
 async function obtenerServicios(args, ctx){
     const { cantidad, pagina } = args;
@@ -169,6 +186,7 @@ async function mantenimientoFechas(input, ctx){
 
 module.exports = {
     obtenerReparaciones,
+    obtenerMantenimientosFiltro,
     obtenerServicios,
     obtenerTransportes,
     obtenerMantenimiento,

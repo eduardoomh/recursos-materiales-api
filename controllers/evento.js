@@ -8,7 +8,23 @@ async function obtenerEventos(input, ctx){
     const { cantidad, pagina } = input;
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
     try{
-        const eventos = await Evento.find().limit(cantidad)
+        const eventos = await Evento.find().sort({fecha: -1}).limit(cantidad)
+        .skip((pagina - 1) * cantidad);
+    
+        return eventos;
+
+    }
+    catch(err){
+        console.log(err);
+    }
+}
+
+async function obtenerEventosFiltro(input, filtro, ctx){
+    const { cantidad, pagina } = input;
+    const { propiedad, atributo } = filtro;
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
+    try{
+        const eventos = await Evento.find().where(propiedad, atributo).sort({fecha: -1}).limit(cantidad)
         .skip((pagina - 1) * cantidad);
     
         return eventos;
@@ -139,6 +155,7 @@ async function eventoFechas(input, ctx){
 
 module.exports = {
     obtenerEventos,
+    obtenerEventosFiltro,
     obtenerEvento,
     crearEvento,
     actualizarEvento,

@@ -423,6 +423,11 @@ input fechas{
   final: String!
 }
 
+input Filtro{
+  propiedad: String!
+  atributo: String!
+}
+
 
 
 #queries
@@ -437,6 +442,7 @@ type Query {
     obtenerEvento(id: ID!): Evento
     buscarEvento(search: String): [Evento]!
     eventoFechas(input: fechas!): [Evento]!
+    obtenerEventosFiltro(input: PaginateInput!,  filtro: Filtro!): [Evento]!
 
     #mantenimientos
     obtenerReparaciones(input: PaginateInput!): [Mantenimiento]!
@@ -445,11 +451,16 @@ type Query {
     obtenerMantenimiento(id: ID!): Mantenimiento
     buscarMantenimiento(search: String): [Mantenimiento]!
     mantenimientoFechas(input: fechas!): [Mantenimiento]!
+    obtenerMantenimientosFiltro(input: PaginateInput!, filtro: Filtro!): [Mantenimiento]!
 
     #salidas
     obtenerSalidas(input: PaginateInput!): [Salida]!
     obtenerSalida(id: ID!): Salida
-    buscarSalida(search: String): [Salida]!,
+    buscarSalida(search: String): [Salida]!
+    obtenerSalidasFiltro(input: PaginateInput!, filtro: Filtro!): [Salida]!
+
+    ##solicitudes generales
+    solicitudesHoy(input: String!): Int!
 
     #departamentos
     obtenerDepartamentos(input: PaginateInput!): [Departamento]!

@@ -6,7 +6,7 @@ async function obtenerSalidas(input, ctx){
     const { cantidad, pagina } = input;
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
     try{
-        const salidas = await Salida.find().limit(cantidad)
+        const salidas = await Salida.find().sort({fecha: -1}).limit(cantidad)
         .skip((pagina - 1) * cantidad);
     
         return salidas;
@@ -16,6 +16,23 @@ async function obtenerSalidas(input, ctx){
         console.log(err);
     }
 }
+
+async function obtenerSalidasFiltro(input, filtro, ctx){
+    const { cantidad, pagina } = input;
+    const { propiedad, atributo } = filtro;
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
+    try{
+        const salidas = await Salida.find().where(propiedad, atributo).sort({fecha: -1}).limit(cantidad)
+        .skip((pagina - 1) * cantidad);
+    
+        return salidas;
+
+    }
+    catch(err){
+        console.log(err);
+    }
+}
+
 
 async function obtenerSalida(id, ctx){
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
@@ -93,6 +110,7 @@ async function buscarSalida(search){
 
 module.exports = {
     obtenerSalidas,
+    obtenerSalidasFiltro,
     obtenerSalida,
     crearSalida,
     actualizarSalida,

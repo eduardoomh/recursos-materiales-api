@@ -12,6 +12,7 @@ const acomodosillaController = require("../controllers/acomodosilla");
 const evidenciaController = require("../controllers/evidencia");
 const puestoController = require("../controllers/puesto");
 const permisoController = require("../controllers/permiso");
+const generalController = require("../controllers/general");
   
 const resolvers = {
     Query: {
@@ -24,6 +25,7 @@ const resolvers = {
       obtenerEvento: (_, args, ctx) => eventoController.obtenerEvento(args.id, ctx),
       buscarEvento: (_, args, ctx) => eventoController.buscarEvento(args.search, ctx),
       eventoFechas: (_, args, ctx) => eventoController.eventoFechas(args.input, ctx),
+      obtenerEventosFiltro: (_, {input, filtro}, ctx) => eventoController.obtenerEventosFiltro(input, filtro, ctx),
 
       //mantenimientos
       obtenerReparaciones: (_, args, ctx) => mantenimientoController.obtenerReparaciones(args.input, ctx),
@@ -32,11 +34,16 @@ const resolvers = {
       obtenerMantenimiento: (_, args, ctx) => mantenimientoController.obtenerMantenimiento(args.id, ctx),
       buscarMantenimiento: (_, args, ctx) => mantenimientoController.buscarMantenimiento(args.search, ctx),
       mantenimientoFechas: (_, args, ctx) => mantenimientoController.mantenimientoFechas(args.input, ctx),
+      obtenerMantenimientosFiltro: (_, {input, filtro}, ctx) => mantenimientoController.obtenerMantenimientosFiltro(input, filtro, ctx),
 
       //salidas
       obtenerSalidas: (_, args, ctx) => salidaController.obtenerSalidas(args.input, ctx),
       obtenerSalida: (_, args, ctx) => salidaController.obtenerSalida(args.id, ctx),
       buscarSalida: (_, args, ctx) => salidaController.buscarSalida(args.search, ctx),
+      obtenerSalidasFiltro: (_, {input, filtro}, ctx) => salidaController.obtenerSalidasFiltro(input, filtro, ctx),
+
+      //solicitudes generales
+      solicitudesHoy: (_, args, ctx) => generalController.solicitudesHoy(args.input, ctx),
 
       //departamentos
       obtenerDepartamentos: (_, args, ctx) => departamentoController.obtenerDepartamentos(args.input, ctx),
