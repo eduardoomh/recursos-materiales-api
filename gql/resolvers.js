@@ -116,43 +116,52 @@ const resolvers = {
         //departamentos
         crearDepartamento: (_, args, ctx) => departamentoController.crearDepartamento(args.input, ctx),
         actualizarDepartamento: (_, {id, input}, ctx) => departamentoController.actualizarDepartamento(id, input, ctx),
+        borrarDepartamento: (_, {id}, ctx) => departamentoController.borrarDepartamento(id, ctx),
 
         //vehiculos
         crearVehiculo: (_, args, ctx) => vehiculoController.crearVehiculo(args.input, ctx),
         actualizarVehiculo: (_, {id, input}, ctx) => vehiculoController.actualizarVehiculo(id, input, ctx),
+        borrarVehiculo: (_, {id}, ctx) => vehiculoController.borrarVehiculo(id, ctx),
 
         //sitios
         crearSitio: (_, args, ctx) => sitioController.crearSitio(args.input, ctx),
         actualizarSitio: (_, {id, input}, ctx) => sitioController.actualizarSitio(id, input, ctx),
+        borrarSitio: (_, {id}, ctx) => sitioController.borrarSitio(id, ctx),
 
         //edificios
         crearEdificio: (_, args, ctx) => edificioController.crearEdificio(args.input, ctx),
         actualizarEdificio: (_, {id, input}, ctx) => edificioController.actualizarEdificio(id, input, ctx),
+        borrarEdificio: (_, {id}, ctx) => edificioController.borrarEdificio(id, ctx),
 
         //subdirecciones
         crearSubdireccion: (_, args, ctx) => subdireccionController.crearSubdireccion(args.input, ctx),
         actualizarSubdireccion: (_, {id, input}, ctx) => subdireccionController.actualizarSubdireccion(id, input, ctx),
+        borrarSubdireccion: (_, {id}, ctx) => subdireccionController.borrarSubdireccion(id, ctx),
 
         //tipoorders
         crearTipoorder: (_, args, ctx) => tipoorderController.crearTipoOrder(args.input, ctx),
         actualizarTipoorder: (_, {id, input}, ctx) => tipoorderController.actualizarTipoOrder(id, input, ctx),
+        borrarTipoorder: (_, {id}, ctx) => tipoorderController.borrarTipoOrder(id, ctx),
 
         //acomodosillas
         crearAcomodosilla: (_, args, ctx) => acomodosillaController.crearAcomodosilla(args.input, ctx),
         actualizarAcomodosilla: (_, {id, input}, ctx) => acomodosillaController.actualizarAcomodosilla(id, input, ctx),
+        borrarAcomodosilla: (_, {id}, ctx) => acomodosillaController.borrarAcomodosilla(id, ctx),
 
         //evidencias
         crearEvidencia: (_, {file, input}, ctx) => evidenciaController.crearEvidencia(file, input, ctx),
         actualizarEvidencia: (_, args, ctx) => evidenciaController.actualizarEvidencia(args.input, ctx),
         borrarEvidencia: (_, args, ctx) => evidenciaController.borrarEvidencia(args.id, ctx),
-
+      
         //puesto
         crearPuesto: (_, args, ctx) => puestoController.crearPuesto(args.input, ctx),
         actualizarPuesto: (_, {id, input}, ctx) => puestoController.actualizarPuesto(id, input, ctx),
+        borrarPuesto: (_, {id}, ctx) => puestoController.borrarPuesto(id, ctx),
 
         //permiso
         crearPermiso: (_, args, ctx) => permisoController.crearPermiso(args.input, ctx),
         actualizarPermiso: (_, {id, input}, ctx) => permisoController.actualizarPermiso(id, input, ctx),
+        borrarPermiso: (_, {id}, ctx) => permisoController.borrarPermiso(id, ctx)
 
 
     },

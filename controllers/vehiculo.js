@@ -1,4 +1,5 @@
 const Vehiculo = require("../models/vehiculo");
+const Salida = require("../models/salida");
 
 async function obtenerVehiculos(input, ctx){
     const { cantidad, pagina } = input;
@@ -58,8 +59,13 @@ async function actualizarVehiculo(id, input, ctx){
     }
 }
 
-async function borrarVehiculo(){
+async function borrarVehiculo(id, ctx){
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
+        const salidas = await Salida.find().where("vehiculo", id);
+        if(salidas.length > 0) throw new Error(`El vehiculo no puede ser eliminado porque esta relacionado con ${salidas.length} salida(s), elimine las relaciones y vuelva a intentarlo`);
+
+        return true;
 }
 
 

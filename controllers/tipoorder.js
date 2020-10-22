@@ -60,7 +60,7 @@ async function actualizarTipoOrder(id, input, ctx){
     }
 }
 
-async function borrarTipoOrder(){
+async function borrarTipoOrder(id, ctx){
 
 }
 

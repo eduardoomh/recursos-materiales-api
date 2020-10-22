@@ -1,4 +1,5 @@
 const Edificio = require("../models/edificio");
+const Sitio = require("../models/sitio");
 
 async function obtenerEdificios(input, ctx){
     const { cantidad, pagina } = input;
@@ -58,8 +59,13 @@ async function actualizarEdificio(id, input, ctx){
     }
 }
 
-async function borrarEdificio(){
+async function borrarEdificio(id, ctx){
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
+        const sitios = await Sitio.find().where("edificio", id);
+        if(sitios.length > 0) throw new Error(`El edificio no puede ser eliminado porque esta relacionado con ${sitios.length} sitio(s), elimine las relaciones y vuelva a intentarlo`);
+
+        return true;
 }
 
 

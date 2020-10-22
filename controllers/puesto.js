@@ -1,4 +1,5 @@
 const Puesto = require("../models/puesto");
+const Permiso = require("../models/permiso");
 
 async function obtenerPuestos(input, ctx){
     const { cantidad, pagina } = input;
@@ -58,8 +59,13 @@ async function actualizarPuesto(id, input, ctx){
     }
 }
 
-async function borrarPuesto(){
+async function borrarPuesto(id, ctx){
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
+        const permisos = await Permiso.find().where("puesto", id);
+        if(permisos.length > 0) throw new Error(`El puesto no puede ser eliminado porque esta relacionado con ${permisos.length} permiso(s), elimine las relaciones y vuelva a intentarlo`);
+
+        return true;
 }
 
 

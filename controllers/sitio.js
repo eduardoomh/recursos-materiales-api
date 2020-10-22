@@ -1,4 +1,5 @@
 const Sitio = require("../models/sitio");
+const Evento = require("../models/evento");
 
 async function obtenerSitios(input, ctx){
     const { cantidad, pagina } = input;
@@ -61,8 +62,13 @@ async function actualizarSitio(id, input, ctx){
     }
 }
 
-async function borrarSitio(){
+async function borrarSitio(id, ctx){
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
+        const eventos = await Evento.find().where("sitio", id);
+        if(eventos.length > 0) throw new Error(`El sitio no puede ser eliminado porque esta relacionado con ${eventos.length} evento(s), elimine las relaciones y vuelva a intentarlo`);
+
+        return true;
 }
 
 

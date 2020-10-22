@@ -1,4 +1,6 @@
 const Departamento = require("../models/departamento");
+const Evento = require("../models/evento");
+const Salida = require("../models/salida");
 
 async function obtenerDepartamentos(input, ctx){
     const { cantidad, pagina } = input;
@@ -58,8 +60,21 @@ async function actualizarDepartamento(id, input, ctx){
     }
 }
 
-async function borrarDepartamento(){
+async function borrarDepartamento(id, ctx){
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
+        const eventos = await Evento.find().where("departamento", id);
+        const mantenimientos = await Mantenimiento.find().where("departamento", id);
+        const salidas = await Salida.find().where("departamento", id);
+
+        const solicitudes = [
+            ...eventos,
+            ...mantenimientos,
+            ...salidas
+        ]
+        if(solicitudes.length > 0) throw new Error(`El departamento no puede ser eliminado porque esta relacionado con ${solicitudes.length} solicitud(es), elimine las relaciones y vuelva a intentarlo`);
+
+        return true;
 }
 
 

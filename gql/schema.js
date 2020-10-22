@@ -535,26 +535,32 @@ type Mutation {
     #departamentos
     crearDepartamento(input: crearDepartamento!): Boolean!
     actualizarDepartamento(id: ID!, input: actualizarDepartamento!): Boolean!
+    borrarDepartamento(id: ID!): Boolean!
 
     #vehiculos
     crearVehiculo(input: crearVehiculo!): Boolean!
     actualizarVehiculo(id: ID!, input: actualizarVehiculo!): Boolean!
+    borrarVehiculo(id: ID!): Boolean!
 
     #sitios
     crearSitio(input: crearSitio!): Boolean!
     actualizarSitio(id: ID!, input: actualizarSitio!): Boolean!
+    borrarSitio(id: ID!): Boolean!
 
     #edificios
     crearEdificio(input: crearEdificio!): Boolean!
     actualizarEdificio(id: ID!, input: actualizarEdificio!): Boolean!
+    borrarEdificio(id: ID!): Boolean!
 
     #subdirecciones
     crearSubdireccion(input: crearSubdireccion!): Boolean!
     actualizarSubdireccion(id: ID!, input: actualizarSubdireccion!): Boolean!
+    borrarSubdireccion(id: ID): Boolean!
 
     #acomodosillas
     crearAcomodosilla(input: crearAcomodosilla!): Boolean!
     actualizarAcomodosilla(id: ID!, input: actualizarAcomodosilla!): Boolean!
+    borrarAcomodosilla(id: ID!): Boolean!
 
     #evidencia
     crearEvidencia(file: Upload, input: crearEvidencia!): Boolean!
@@ -565,14 +571,17 @@ type Mutation {
     #tipoorder
     crearTipoorder(input: crearTipoorder!): Boolean!
     actualizarTipoorder(id: ID!, input: actualizarTipoorder!): Boolean!
+    borrarTipoorder(id: ID!): Boolean!
 
     #puesto
     crearPuesto(input: crearPuesto!): Boolean!
     actualizarPuesto(id: ID!, input: actualizarPuesto!): Boolean!
+    borrarPuesto(id: ID!): Boolean!
 
     #permiso
     crearPermiso(input: crearPermiso!): Boolean!
     actualizarPermiso(id: ID!, input: actualizarPermiso!): Boolean!
+    borrarPermiso(id: ID!): Boolean!
 
   }
 `;
