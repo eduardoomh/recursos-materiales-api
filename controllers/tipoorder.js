@@ -1,4 +1,5 @@
 const Tipoorder = require("../models/tipoorder");
+const mongoose = require("mongoose");
 
 async function obtenerTipoOrders(input, ctx){
     const { cantidad, pagina } = input;
@@ -61,7 +62,14 @@ async function actualizarTipoOrder(id, input, ctx){
 }
 
 async function borrarTipoOrder(id, ctx){
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
+        const mantenimientos = await mongoose.model('Mantenimiento').find().where("servicio", id);
+        if(mantenimientos.length > 0) throw new Error(`El servicio no puede ser eliminado porque esta relacionado con ${mantenimientos.length} mantenimiento(s), elimine las relaciones y vuelva a intentarlo`);
+
+        const borrar = await Tipoorder.findByIdAndDelete(id);
+        if(!borrar) throw new Error("El servicio no se ha borrado");
+        return true;
 }
 
 

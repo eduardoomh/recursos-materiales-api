@@ -2,20 +2,40 @@ const Mantenimiento = require("../models/mantenimiento");
 const Usuario = require("../models/usuario");
 const Evidencia = require("../models/evidencia");
 const EvidenciaController = require("../controllers/evidencia");
+const numeros = require("../utils/numeros");
 const bcrypt = require("bcryptjs");
 
-async function obtenerReparaciones(args, ctx){
-    const { cantidad, pagina } = args;
-    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
-    try{
-        const mantenimientos = await Mantenimiento.find().sort({fecha: -1}).limit(cantidad)
-        .skip((pagina - 1) * cantidad);
+async function obtenerReparaciones(input, ctx, orden, filtro){
+    const { cantidad, pagina } = input;
+    if (!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
-        return mantenimientos; 
+    const inicio = numeros.fechaInicio();
+    const final = numeros.fechaFinal();
+    let mantenimientos;
+
+    switch (filtro) {
+        case "aprobados":
+             mantenimientos = await Mantenimiento.find().where("aprobado", true).sort(orden).limit(cantidad).skip((pagina - 1) * cantidad);
+
+            break;
+        case "pendientes":
+            mantenimientos = await Mantenimiento.find().where("verificado", false).sort(orden).limit(cantidad).skip((pagina - 1) * cantidad);
+
+            break;
+        case "verificados":
+            mantenimientos = await Mantenimiento.find().where("aprobado", false).where("verificado", true).sort(orden).limit(cantidad).skip((pagina - 1) * cantidad);
+
+            break;
+        case "mes actual":
+            mantenimientos = await Mantenimiento.find({ fecha: { $gte: inicio, $lte: final } }).sort(orden).limit(cantidad).skip((pagina - 1) * cantidad);
+
+            break;
+        default:
+            mantenimientos = await Mantenimiento.find().sort(orden).limit(cantidad).skip((pagina - 1) * cantidad);
+            break;
     }
-    catch(err){
-        console.log(err);
-    }
+
+    return mantenimientos;
 
 }
 

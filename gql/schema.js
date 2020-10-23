@@ -428,6 +428,16 @@ input Filtro{
   atributo: String!
 }
 
+input Filtrado{
+  propiedad: String
+  atributo: Boolean
+}
+
+input Orden{
+  fecha: Int
+  createdAt: Int
+}
+
 
 
 #queries
@@ -438,14 +448,14 @@ type Query {
     obtenerUsuariosPendientes(input: PaginateInput!): [Usuario]!
 
     #eventos
-    obtenerEventos(input: PaginateInput!): [Evento]!
+    obtenerEventos(input: PaginateInput!, orden: Orden, filtro: String): [Evento]!
     obtenerEvento(id: ID!): Evento
     buscarEvento(search: String): [Evento]!
     eventoFechas(input: fechas!): [Evento]!
     obtenerEventosFiltro(input: PaginateInput!,  filtro: Filtro!): [Evento]!
 
     #mantenimientos
-    obtenerReparaciones(input: PaginateInput!): [Mantenimiento]!
+    obtenerReparaciones(input: PaginateInput!, orden: Orden, filtro: String): [Mantenimiento]!
     obtenerServicios(input: PaginateInput!): [Mantenimiento]!
     obtenerTransportes(input: PaginateInput!): [Mantenimiento]!
     obtenerMantenimiento(id: ID!): Mantenimiento
@@ -454,7 +464,7 @@ type Query {
     obtenerMantenimientosFiltro(input: PaginateInput!, filtro: Filtro!): [Mantenimiento]!
 
     #salidas
-    obtenerSalidas(input: PaginateInput!): [Salida]!
+    obtenerSalidas(input: PaginateInput!, orden: Orden, filtro: String): [Salida]!
     obtenerSalida(id: ID!): Salida
     buscarSalida(search: String): [Salida]!
     obtenerSalidasFiltro(input: PaginateInput!, filtro: Filtro!): [Salida]!

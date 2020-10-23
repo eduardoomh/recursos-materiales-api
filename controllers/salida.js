@@ -1,20 +1,26 @@
 const Salida = require("../models/salida");
 const Evidencia = require("../models/evidencia");
+const numeros = require("../utils/numeros");
 const EvidenciaController = require("../controllers/evidencia");
 
-async function obtenerSalidas(input, ctx){
+async function obtenerSalidas(input, ctx, orden, filtro){
     const { cantidad, pagina } = input;
-    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
-    try{
-        const salidas = await Salida.find().sort({fecha: -1}).limit(cantidad)
-        .skip((pagina - 1) * cantidad);
-    
-        return salidas;
+    if (!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
+    const inicio = numeros.fechaInicio();
+    const final = numeros.fechaFinal();
+    let salidas;
+
+    switch (filtro) {
+        case "mes actual":
+            salidas = await Salida.find({ fecha: { $gte: inicio, $lte: final } }).sort(orden).limit(cantidad).skip((pagina - 1) * cantidad);
+            break;
+        default:
+            salidas = await Salida.find().sort(orden).limit(cantidad).skip((pagina - 1) * cantidad);
+            break;
     }
-    catch(err){
-        console.log(err);
-    }
+
+    return salidas;
 }
 
 async function obtenerSalidasFiltro(input, filtro, ctx){

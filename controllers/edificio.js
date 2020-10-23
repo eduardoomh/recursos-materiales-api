@@ -65,6 +65,8 @@ async function borrarEdificio(id, ctx){
         const sitios = await Sitio.find().where("edificio", id);
         if(sitios.length > 0) throw new Error(`El edificio no puede ser eliminado porque esta relacionado con ${sitios.length} sitio(s), elimine las relaciones y vuelva a intentarlo`);
 
+        const borrar = await Edificio.findByIdAndDelete(id);
+        if(!borrar) throw new Error("El sitio no se ha borrado");
         return true;
 }
 

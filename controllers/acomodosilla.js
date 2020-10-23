@@ -48,12 +48,15 @@ async function actualizarAcomodosilla(){
 
 }
 
-async function borrarAcomodosilla(){
+async function borrarAcomodosilla(id, ctx){
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
         const eventos = await Evento.find().where("acomodo_sillas", id);
         if(eventos.length > 0) throw new Error(`La organizacion no puede ser eliminada porque esta relacionada con ${eventos.length} evento(s), elimine las relaciones y vuelva a intentarlo`);
 
+        const borrar = await Acomodosilla.findByIdAndDelete(id);
+        if(!borrar) throw new Error("La organizacion no se ha borrado");
+        
         return true;
 }
 

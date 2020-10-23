@@ -68,6 +68,8 @@ async function borrarSitio(id, ctx){
         const eventos = await Evento.find().where("sitio", id);
         if(eventos.length > 0) throw new Error(`El sitio no puede ser eliminado porque esta relacionado con ${eventos.length} evento(s), elimine las relaciones y vuelva a intentarlo`);
 
+        const borrar = await Sitio.findByIdAndDelete(id);
+        if(!borrar) throw new Error("El sitio no se ha borrado");
         return true;
 }
 

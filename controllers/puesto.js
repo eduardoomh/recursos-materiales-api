@@ -65,6 +65,8 @@ async function borrarPuesto(id, ctx){
         const permisos = await Permiso.find().where("puesto", id);
         if(permisos.length > 0) throw new Error(`El puesto no puede ser eliminado porque esta relacionado con ${permisos.length} permiso(s), elimine las relaciones y vuelva a intentarlo`);
 
+        const borrar = await Puesto.findByIdAndDelete(id);
+        if(!borrar) throw new Error("El puesto no se ha borrado");
         return true;
 }
 

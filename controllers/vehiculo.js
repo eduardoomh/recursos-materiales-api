@@ -65,6 +65,8 @@ async function borrarVehiculo(id, ctx){
         const salidas = await Salida.find().where("vehiculo", id);
         if(salidas.length > 0) throw new Error(`El vehiculo no puede ser eliminado porque esta relacionado con ${salidas.length} salida(s), elimine las relaciones y vuelva a intentarlo`);
 
+        const borrar = await Vehiculo.findByIdAndDelete(id);
+        if(!borrar) throw new Error("El vehiculo no se ha borrado");
         return true;
 }
 

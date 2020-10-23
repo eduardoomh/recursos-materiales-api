@@ -67,6 +67,8 @@ async function borrarSubdireccion(id, ctx){
         const departamentos = await Departamento.find().where("subdireccion", id);
         if(departamentos.length > 0) throw new Error(`La subdireccion no puede ser eliminada porque esta relacionada con ${departamentos.length} departamento(s), elimine las relaciones y vuelva a intentarlo`);
 
+        const borrar = await Subdirection.findByIdAndDelete(id);
+        if(!borrar) throw new Error("La subdireccion no se ha borrado");
         return true;
     
 }

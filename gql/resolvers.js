@@ -21,14 +21,14 @@ const resolvers = {
       obtenerUsuario: (_, args, ctx) => usuarioController.obtenerUsuario(args.id, ctx),
 
       //eventos
-      obtenerEventos: (_, args, ctx) => eventoController.obtenerEventos(args.input, ctx),
+      obtenerEventos: (_, {input, orden, filtro}, ctx) => eventoController.obtenerEventos(input, ctx, orden, filtro),
       obtenerEvento: (_, args, ctx) => eventoController.obtenerEvento(args.id, ctx),
       buscarEvento: (_, args, ctx) => eventoController.buscarEvento(args.search, ctx),
       eventoFechas: (_, args, ctx) => eventoController.eventoFechas(args.input, ctx),
       obtenerEventosFiltro: (_, {input, filtro}, ctx) => eventoController.obtenerEventosFiltro(input, filtro, ctx),
 
       //mantenimientos
-      obtenerReparaciones: (_, args, ctx) => mantenimientoController.obtenerReparaciones(args.input, ctx),
+      obtenerReparaciones: (_, {input, orden, filtro}, ctx) => mantenimientoController.obtenerReparaciones(input, ctx, orden, filtro),
       obtenerServicios: (_, args, ctx) => mantenimientoController.obtenerServicios(args.input, ctx),
       obtenerTransportes: (_, args, ctx) => mantenimientoController.obtenerTransportes(args.input, ctx),
       obtenerMantenimiento: (_, args, ctx) => mantenimientoController.obtenerMantenimiento(args.id, ctx),
@@ -37,7 +37,7 @@ const resolvers = {
       obtenerMantenimientosFiltro: (_, {input, filtro}, ctx) => mantenimientoController.obtenerMantenimientosFiltro(input, filtro, ctx),
 
       //salidas
-      obtenerSalidas: (_, args, ctx) => salidaController.obtenerSalidas(args.input, ctx),
+      obtenerSalidas: (_, {input, orden, filtro}, ctx) => salidaController.obtenerSalidas(input, ctx, orden, filtro),
       obtenerSalida: (_, args, ctx) => salidaController.obtenerSalida(args.id, ctx),
       buscarSalida: (_, args, ctx) => salidaController.buscarSalida(args.search, ctx),
       obtenerSalidasFiltro: (_, {input, filtro}, ctx) => salidaController.obtenerSalidasFiltro(input, filtro, ctx),

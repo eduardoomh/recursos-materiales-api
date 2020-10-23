@@ -73,8 +73,12 @@ async function actualizarPermiso(id, input, ctx){
 
 }
 
-async function borrarPermiso(){
+async function borrarPermiso(id, ctx){
+    if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
+    const borrar = await Permiso.findByIdAndDelete(id);
+    if(!borrar) throw new Error("El permiso no se ha borrado");
+    return true;
 }
 
 
