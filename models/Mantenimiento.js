@@ -74,6 +74,11 @@ const MantenimientoSchema = Schema({
         trim: true,
         default: false
     },
+    evidencias: {
+        type: Number,
+        require: false,
+        default: 0
+    },
     createdAt: {
         type: Date,
         default: Date.now()

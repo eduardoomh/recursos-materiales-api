@@ -7,7 +7,7 @@ async function obtenerDepartamentos(input, ctx){
     const { cantidad, pagina } = input;
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
     try{
-        const departamentos = await Departamento.find().populate("subdireccion").limit(cantidad)
+        const departamentos = await Departamento.find().sort({createdAt: -1}).populate("subdireccion").limit(cantidad)
         .skip((pagina - 1) * cantidad);
     
         return departamentos;

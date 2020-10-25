@@ -4,7 +4,7 @@ async function obtenerPermisos(input, ctx){
     const { cantidad, pagina } = input;
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
     try{
-        const permisos = await Permiso.find().populate("usuario").limit(cantidad)
+        const permisos = await Permiso.find().sort({createdAt: -1}).populate("usuario").limit(cantidad)
         .skip((pagina - 1) * cantidad);
     
         return permisos;

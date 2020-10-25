@@ -5,7 +5,7 @@ async function obtenerVehiculos(input, ctx){
     const { cantidad, pagina } = input;
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
     try{
-        const vehiculos = await Vehiculo.find().limit(cantidad)
+        const vehiculos = await Vehiculo.find().sort({createdAt: -1}).limit(cantidad)
         .skip((pagina - 1) * cantidad);
     
         return vehiculos;

@@ -31,6 +31,7 @@ type Evento{
   acomodo_sillas: Acomodosilla!
   verificado: Boolean!
   aprobado: Boolean!
+  evidencias: Int
   createdAt: String!
   updatedAt: String
 }
@@ -133,6 +134,7 @@ type Salida{
   hora_llegada: String!
   vehiculo: Vehiculo!
   chofer: String!
+  evidencias: Int
   createdAt: String!
   updatedAt: String!
 }
@@ -153,6 +155,7 @@ type Mantenimiento{
   equipo_proteccion: String
   verificado: Boolean!
   aprobado: Boolean!
+  evidencias: Int
   createdAt: String!
   updatedAt: String!
 }
@@ -392,7 +395,6 @@ input actualizarPermiso{
 #input de acomodosillas
 input crearAcomodosilla{
   nombre: String!
-  imagen: String!
 }
 
 input actualizarAcomodosilla{
@@ -568,14 +570,15 @@ type Mutation {
     borrarSubdireccion(id: ID): Boolean!
 
     #acomodosillas
-    crearAcomodosilla(input: crearAcomodosilla!): Boolean!
+    crearAcomodosilla(file: Upload, input: crearAcomodosilla!): Boolean!
     actualizarAcomodosilla(id: ID!, input: actualizarAcomodosilla!): Boolean!
+    actualizarAcomodosillaImagen(id: ID!, file: Upload!): Boolean!
     borrarAcomodosilla(id: ID!): Boolean!
 
     #evidencia
-    crearEvidencia(file: Upload, input: crearEvidencia!): Boolean!
+    crearEvidencia(file: Upload!, input: crearEvidencia!): Boolean!
     actualizarEvidencia(input: actualizarEvidencia!): Boolean!
-    borrarEvidencia(id: ID!): Boolean!
+    borrarEvidencia(id: ID!, input: crearEvidencia!): Boolean!
 
 
     #tipoorder

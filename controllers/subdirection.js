@@ -5,7 +5,7 @@ async function obtenerSubdirecciones(input, ctx){
     const { cantidad, pagina } = input;
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
     try{
-        const subdirecciones = await Subdirection.find().limit(cantidad)
+        const subdirecciones = await Subdirection.find().sort({createdAt: -1}).limit(cantidad)
         .skip((pagina - 1) * cantidad);
 
         return subdirecciones;

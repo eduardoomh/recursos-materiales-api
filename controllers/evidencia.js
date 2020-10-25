@@ -1,4 +1,5 @@
 const Evidencia = require("../models/evidencia");
+const mongoose = require("mongoose");
 const awsUploadImage = require("../utils/aws-upload-image");
 const awsDeleteImage = require("../utils/aws-delete-image");
 const { v4: uuidv4 } = require("uuid");
@@ -48,9 +49,27 @@ async function crearEvidencia(file, input, ctx) {
             tipo: tipo,
             imagen: result
         });
-        evidencia.save();
+        await evidencia.save();
 
-        if (evidencia) return true;
+        if (evidencia){
+            const cantidadEvidencia = await Evidencia.find().where("solicitud", solicitud).where("tipo", tipo);
+
+            switch(tipo){
+                case "eventos":
+                    await mongoose.model('Evento').findByIdAndUpdate(solicitud,{evidencias: cantidadEvidencia.length});
+                    break;
+                case "mantenimientos": 
+                    await mongoose.model('Mantenimiento').findByIdAndUpdate(solicitud,{evidencias: cantidadEvidencia.length});
+                break;
+                case "salidas":
+                    await mongoose.model('Salida').findByIdAndUpdate(solicitud,{evidencias: cantidadEvidencia.length});
+                    break;
+                default:
+                    break;
+            }
+
+            return true;
+        } 
 
     }
     catch (error) {
@@ -59,8 +78,9 @@ async function crearEvidencia(file, input, ctx) {
     }
 }
 
-async function borrarEvidencia(id, ctx) {
+async function borrarEvidencia(id, input, ctx) {
     if (!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
+        const {solicitud, tipo} = input;
 
     try {
         const evidencia = await Evidencia.findById(id);
@@ -86,8 +106,27 @@ async function borrarEvidencia(id, ctx) {
         if (!result) throw new Error("Lo sentimos, la imagen no ha sido eliminada");
 
         const borrarEvidencia = await Evidencia.findByIdAndDelete(id);
-        if (!borrarEvidencia) return false;
-        return true;
+
+        if (borrarEvidencia){
+            const cantidadEvidencia = await Evidencia.find().where("solicitud", solicitud).where("tipo", tipo);
+
+            switch(tipo){
+                case "eventos":
+                    await mongoose.model('Evento').findByIdAndUpdate(solicitud,{evidencias: cantidadEvidencia.length});
+                    break;
+                case "mantenimientos": 
+                    await mongoose.model('Mantenimiento').findByIdAndUpdate(solicitud,{evidencias: cantidadEvidencia.length});
+                break;
+                case "salidas":
+                    await mongoose.model('Salida').findByIdAndUpdate(solicitud,{evidencias: cantidadEvidencia.length});
+                    break;
+                default:
+                    break;
+            }
+
+            return true;
+        }
+        return false;
     }
     catch (err) {
         console.log(err);

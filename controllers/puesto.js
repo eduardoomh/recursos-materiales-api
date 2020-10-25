@@ -5,7 +5,7 @@ async function obtenerPuestos(input, ctx){
     const { cantidad, pagina } = input;
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
     try{
-        const puestos = await Puesto.find().limit(cantidad)
+        const puestos = await Puesto.find().sort({createdAt: -1}).limit(cantidad)
         .skip((pagina - 1) * cantidad);
     
         return puestos;

@@ -6,7 +6,7 @@ async function obtenerSitios(input, ctx){
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
     try{
-        const sitios = await Sitio.find().populate("edificio").limit(cantidad)
+        const sitios = await Sitio.find().sort({createdAt: -1}).populate("edificio").limit(cantidad)
         .skip((pagina - 1) * cantidad);
     
         return sitios;

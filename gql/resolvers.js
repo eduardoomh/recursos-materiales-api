@@ -144,14 +144,15 @@ const resolvers = {
         borrarTipoorder: (_, {id}, ctx) => tipoorderController.borrarTipoOrder(id, ctx),
 
         //acomodosillas
-        crearAcomodosilla: (_, args, ctx) => acomodosillaController.crearAcomodosilla(args.input, ctx),
+        crearAcomodosilla: (_, {file, input}, ctx) => acomodosillaController.crearAcomodosilla(file, input, ctx),
         actualizarAcomodosilla: (_, {id, input}, ctx) => acomodosillaController.actualizarAcomodosilla(id, input, ctx),
+        actualizarAcomodosillaImagen: (_, {id, file}, ctx) => acomodosillaController.actualizarAcomodosillaImagen(id, file, ctx),
         borrarAcomodosilla: (_, {id}, ctx) => acomodosillaController.borrarAcomodosilla(id, ctx),
 
         //evidencias
         crearEvidencia: (_, {file, input}, ctx) => evidenciaController.crearEvidencia(file, input, ctx),
         actualizarEvidencia: (_, args, ctx) => evidenciaController.actualizarEvidencia(args.input, ctx),
-        borrarEvidencia: (_, args, ctx) => evidenciaController.borrarEvidencia(args.id, ctx),
+        borrarEvidencia: (_, {id, input}, ctx) => evidenciaController.borrarEvidencia(id, input, ctx),
       
         //puesto
         crearPuesto: (_, args, ctx) => puestoController.crearPuesto(args.input, ctx),

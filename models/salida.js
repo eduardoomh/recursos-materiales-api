@@ -47,6 +47,11 @@ const SalidaSchema = Schema({
         require: true,
         trim: true
     },
+    evidencias: {
+        type: Number,
+        require: false,
+        default: 0
+    },
     createdAt: {
         type: Date,
         default: Date.now()

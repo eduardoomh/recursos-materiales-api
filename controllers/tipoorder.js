@@ -6,7 +6,7 @@ async function obtenerTipoOrders(input, ctx){
     if(!ctx.usuario) throw new Error("No cuenta con las credenciales para hacer esto, inicie sesion");
 
     try{
-        const tipoorders = await Tipoorder.find().limit(cantidad)
+        const tipoorders = await Tipoorder.find().sort({createdAt: -1}).limit(cantidad)
         .skip((pagina - 1) * cantidad);
     
         return tipoorders;
