@@ -1,6 +1,6 @@
 
 function padLeft(value, length) {
-    return (value.toString().length < length) ? PadLeft("0" + value, length) : 
+    return (value.toString().length < length) ? padLeft("0" + value, length) : 
     value;
 }
 
@@ -16,5 +16,6 @@ function fechaFinal(){
 
 module.exports = {
     fechaInicio,
-    fechaFinal
+    fechaFinal,
+    padLeft
 }

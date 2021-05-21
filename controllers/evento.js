@@ -14,7 +14,7 @@ async function obtenerEventos(input, ctx, orden, filtro) {
     let eventos;
 
     switch (filtro) {
-        case "aprobados":
+        case "aprobados": 
             eventos = await Evento.find().where("aprobado", true).sort(orden).limit(cantidad).skip((pagina - 1) * cantidad);
 
             break;
@@ -29,7 +29,7 @@ async function obtenerEventos(input, ctx, orden, filtro) {
         case "mes actual":
             eventos = await Evento.find({ fecha: { $gte: inicio, $lte: final } }).sort(orden).limit(cantidad).skip((pagina - 1) * cantidad);
 
-            break;
+            break; 
         default:
             eventos = await Evento.find().sort(orden).limit(cantidad).skip((pagina - 1) * cantidad);
             break;
