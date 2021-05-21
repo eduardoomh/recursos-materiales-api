@@ -6,7 +6,7 @@ const resolvers = require("./gql/resolvers");
 require("dotenv").config({path: ".env"});
 
 
-mongoose.connect(process.env.BBDD, {
+mongoose.connect("mongodb+srv://tecmaterialesadmin:tecmateriales123@tecmaterialesbd.q3ikf.mongodb.net/recursos_materiales", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: true,
